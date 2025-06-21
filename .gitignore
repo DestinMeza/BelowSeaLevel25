@@ -1,0 +1,12 @@
+Packages/
+Library/
+Logs/
+Temp/
+ProjectSettings/
+Temp/
+UserSettings/
+
+.vscode/
+
+Assembly-CSharp.csproj
+BelowSeaLevel.sln
