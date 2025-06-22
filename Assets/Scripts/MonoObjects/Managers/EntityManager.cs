@@ -7,6 +7,7 @@ namespace BelowSeaLevel_25
 {
     internal class EntityManager : MonoManager<EntityManager>
     {
+        public Spawner spawner;
         public EntityConfig entityConfig;
         public InitalizationTable<Entity> entityTable;
 
@@ -41,6 +42,8 @@ namespace BelowSeaLevel_25
 
                 m_AllEntities.Add(key, monoEntities);
             }
+
+            spawner.Init();
         }
 
         public static MonoEntity Spawn(string key, Vector3 targetPosition, float upAngleDegrees = 0)

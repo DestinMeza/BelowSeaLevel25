@@ -72,15 +72,36 @@ namespace BelowSeaLevel_25
             MonoCard inactiveCard = GetInactiveCard();
             inactiveCard.OnDraw(pendingCard);
 
-            bool forceDiscard = ActiveHand.Length == m_HandConfig.MaxCards;
+            bool forceDiscard = ActiveHand.Length >= m_HandConfig.MaxCards + 1;
+
+            List<MonoCard> monoCards = UICards.ToList();
+            monoCards.Sort(SortByActiveCard);
 
             if (forceDiscard)
             {
-                Discard(LastCard);
+                for (int i = 0; i < monoCards.Count; i++)
+                {
+                    Debug.Log($"Card {i}: {monoCards[i].CardRef}");
+                }
+
+                Discard(monoCards.First());
             }
 
-
             UpdateActiveHand();
+        }
+
+        private int SortByActiveCard(MonoCard card, MonoCard other)
+        {
+            if (card.HasCard && !other.HasCard)
+            {
+                return -1;
+            }
+            if (!card.HasCard && other.HasCard)
+            {
+                return 1;
+            }
+
+            return 0;
         }
 
         public void Discard(MonoCard cardToDiscard)

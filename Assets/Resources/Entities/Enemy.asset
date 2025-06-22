@@ -16,3 +16,4 @@ MonoBehaviour:
   EnemySprite: {fileID: 0}
   Health: 1
   Damage: 1
+  Speed: 2

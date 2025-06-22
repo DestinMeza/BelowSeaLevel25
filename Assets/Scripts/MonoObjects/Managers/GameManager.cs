@@ -45,6 +45,7 @@ namespace BelowSeaLevel_25
 
         private void Init()
         {
+            IsPlaying = true;
             PlayerStartingPosition = CannonStartPos.position;
 
             managers.ForEach(x => x.Init());

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bomb
   m_EditorClassIdentifier: 
   Name: Bomb
-  ProjectileSprite: {fileID: 0}
+  ProjectileSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   Damage: 3
   Speed: 5
