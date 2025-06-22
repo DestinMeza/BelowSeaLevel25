@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using static BelowSeaLevel_25.Globals.Enums;
 
 namespace BelowSeaLevel_25
 {
     internal class UIManager : MonoManager<UIManager>
     {
+        public Image HealthBarUI;
+        public TMPro.TextMeshProUGUI ScoreUI;
+
         public static UIState State => Instance.uiState;
         public UIState uiState = UIState.FreePointer;
 
@@ -107,6 +111,16 @@ namespace BelowSeaLevel_25
         public static void ForceCancelPlay()
         {
             SetUIState(UIState.HandMode);
+        }
+
+        public static void UpdateHealth()
+        {
+            Instance.HealthBarUI.fillAmount = (float)GameManager.Player.CurrentHealth / (float)GameManager.Player.Health;
+        }
+
+        public static void UpdateScore()
+        {
+            Instance.ScoreUI.text = GameManager.Player.Score.ToString();
         }
     }
 }

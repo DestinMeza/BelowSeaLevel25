@@ -12,6 +12,7 @@ namespace BelowSeaLevel_25
         public MonoHand GameHand;
 
         private Card m_ActiveCard;
+        private int m_CurrentCount = 0;
 
         public override void Init()
         {
@@ -30,10 +31,21 @@ namespace BelowSeaLevel_25
             }
 
             m_ActiveCard.OnActivate();
-            GameHand.Discard(m_ActiveCard.MonoCard);
-            m_ActiveCard = null;
+            m_CurrentCount++;
 
-            UIManager.SetUIState(UIState.HandMode);
+            int remainingActivations = m_ActiveCard.GetCount() - m_CurrentCount;
+
+            Debug.Log($"Card Reactivate Remaining: {remainingActivations}");
+
+            if (0 >= remainingActivations)
+            {
+                MonoCard monoCard = m_ActiveCard.MonoCard;
+                GameHand.Discard(monoCard);
+                m_ActiveCard = null;
+
+                UIManager.SetUIState(UIState.HandMode);
+                m_CurrentCount = 0;
+            }
         }
 
         public static void Draw()

@@ -16,6 +16,7 @@ namespace BelowSeaLevel_25
     {
         public Sprite CardImage;
         public int Damage;
+        public int Count;
 
         public MonoCard MonoCard => m_MonoCardRef;
         private MonoCard m_MonoCardRef;
@@ -25,25 +26,40 @@ namespace BelowSeaLevel_25
             m_MonoCardRef = monoCard;
         }
 
+        public void Clone(Card other)
+        {
+            CardImage = other.CardImage;
+            Damage = other.Damage;
+            Count = other.Count;
+        }
+
         public virtual string GetCardDetails()
         {
             return $"Card Name: {GetType().Name}\n" +
-                   $"Damage: {Damage}\n";
+                   $"Damage: {Damage}\n" +
+                   $"Count: {Count}\n";
         }
 
-        public virtual Sprite GetCardImage()
+        public Sprite GetCardImage()
         {
             return CardImage;
         }
 
-        public virtual int GetDamage()
+        public int GetDamage()
         {
-            return Damage;
+            int damage = Damage;
+            return damage;
+        }
+
+        public int GetCount()
+        {
+            int count = Count;
+            return count;
         }
 
         public virtual void OnActivate()
         {
-            
+
         }
     }
 }

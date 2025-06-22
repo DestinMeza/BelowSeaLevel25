@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d191f7dd135afd299cab214c5576897, type: 3}
   m_Name: Cannon
   m_EditorClassIdentifier: 
-  BarrelBase: {fileID: 0}
-  BarrelSprite: {fileID: 0}
-  Damage: 0
+  BarrelBase: {fileID: 21300000, guid: 2613412f8fd1f4ac08193535614df4f8, type: 3}
+  BarrelSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}

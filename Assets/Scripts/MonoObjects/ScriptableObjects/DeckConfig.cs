@@ -20,6 +20,7 @@ namespace BelowSeaLevel_25
             for (int i = 0; i < m_Cards.Length; i++)
             {
                 cards[i] = Card.CreateInstance(m_Cards[i].GetType()) as Card;
+                cards[i].Clone(m_Cards[i]);
             }
 
             return cards;

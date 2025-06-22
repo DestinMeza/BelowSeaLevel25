@@ -107,6 +107,8 @@ namespace BelowSeaLevel_25
         public void Discard(MonoCard cardToDiscard)
         {
             Debug.Log("Discarding Card...");
+            GameManager.Player.AddScore(-10);
+
             cardToDiscard.OnDiscard();
             UpdateActiveHand();
         }

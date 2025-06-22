@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e720665de012143a819d43f41e8bde, type: 3}
   m_Name: LazerCard
   m_EditorClassIdentifier: 
-  CardImage: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  Damage: 5
+  CardImage: {fileID: 21300000, guid: 12cf59a36ecfc4536b4390047760beba, type: 3}
+  Damage: 1
+  Count: 20

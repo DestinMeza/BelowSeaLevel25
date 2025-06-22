@@ -27,6 +27,12 @@ namespace BelowSeaLevel_25
             hasMouseInput = Input.GetMouseButtonDown(0);
             hasKeyboardInput = Input.GetButtonDown("Submit");
 
+            if (!Globals.GameState.IsPlaying && (hasMouseInput || hasKeyboardInput))
+            {
+                GameManager.Reset();
+                return;
+            }
+
             switch (UIManager.State)
             {
                 case UIState.FreePointer: FreePointerState(); return;

@@ -10,9 +10,12 @@ namespace BelowSeaLevel_25
         public int currentHealth;
         public int MaxHealth => m_Health;
 
+        private int m_Score;
+        private int m_Damage;
         private int m_Health;
         private float m_Speed;
 
+        public int GetDamage() => m_Damage;
 
         public override void OnEnable()
         {
@@ -26,6 +29,8 @@ namespace BelowSeaLevel_25
             IEnemy enemy = Entity as IEnemy;
             m_Speed = enemy.GetSpeed();
             m_Health = enemy.GetHealth();
+            m_Damage = enemy.GetDamage();
+            m_Score = enemy.GetScore();
         }
 
         public void FixedUpdate()
@@ -53,6 +58,7 @@ namespace BelowSeaLevel_25
 
             if (currentHealth <= 0)
             {
+                GameManager.Player.AddScore(m_Score);
                 gameObject.SetActive(false);
             }
         }
