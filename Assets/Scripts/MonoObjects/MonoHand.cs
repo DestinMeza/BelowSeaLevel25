@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace BelowSeaLevel_25
 {
-    public class MonoHand : MonoBehaviour
+    public class MonoHand : MonoBehaviour, IUIElement
     {
         public MonoCard[] ActiveHand => GetActiveHand();
-        public MonoCard LastCard => UICards.Last();
-        public MonoCard StartingCard => UICards.First();
+        public MonoCard LastCard => GetLastCard();
+        public MonoCard StartingCard => GetFirstCard();
         public int SelectedIndex => m_SelectedIndex;
 
         public MonoCard[] UICards;
@@ -32,6 +32,9 @@ namespace BelowSeaLevel_25
             for (int i = 0; i < UICards.Length; i++)
             {
                 UICards[i].SetIndex(i);
+                UICards[i].OnSelectCallback += OnSelectCallback;
+                UICards[i].OnActivateCallback += OnActivateCallback;
+                UICards[i].OnDrawCallback += OnDrawCallback;
             }
 
             m_ReferencedDeck = new Deck(m_AvalibleCardDeck.Cards);
@@ -39,12 +42,26 @@ namespace BelowSeaLevel_25
             UpdateActiveHand();
         }
 
-        private void PushDown()
-        { 
-            for (int i = 1; i < UICards.Length - 1; i++)
-            {
-                UICards[i + 1].Swap(UICards[i]);
-            }
+        public void OnSelectCallback(Card card)
+        {
+            Debug.Log($"Selecting: {card.GetType().Name}");
+        }
+
+        public void OnActivateCallback(Card card)
+        {
+            Debug.Log($"Activating: {card.GetType().Name}");
+
+            CardManager.SetActiveCard(card);
+        }
+
+        public void OnDrawCallback(Card card)
+        {
+            Debug.Log($"Drawing: {card.GetType().Name}");
+        }
+
+        private MonoCard GetInactiveCard()
+        {
+            return UICards.Where(x => !x.isActiveAndEnabled).FirstOrDefault();
         }
 
         public void Draw()
@@ -52,16 +69,17 @@ namespace BelowSeaLevel_25
             Debug.Log("Drawing Card...");
             Card pendingCard = m_ReferencedDeck.Draw();
 
+            MonoCard inactiveCard = GetInactiveCard();
+            inactiveCard.OnDraw(pendingCard);
+
             bool forceDiscard = ActiveHand.Length == m_HandConfig.MaxCards;
 
             if (forceDiscard)
             {
-                LastCard.OnDiscard();
+                Discard(LastCard);
             }
 
-            PushDown();
 
-            StartingCard.OnDraw(pendingCard);
             UpdateActiveHand();
         }
 
@@ -107,6 +125,41 @@ namespace BelowSeaLevel_25
             }
 
             return activeCards.ToArray();
+        }
+
+        private MonoCard GetLastCard()
+        {
+            MonoCard[] activeCards = GetActiveHand();
+
+            for (int i = activeCards.Length - 1; i >= 0; i--)
+            {
+                if (activeCards[i].HasCard)
+                {
+                    return activeCards[i];
+                }
+            }
+
+            return null;
+        }
+
+        private MonoCard GetFirstCard()
+        {
+            MonoCard[] activeCards = GetActiveHand();
+
+            for (int i = 0; i < 0; i++)
+            {
+                if (activeCards[i].HasCard)
+                {
+                    return activeCards[i];
+                }
+            }
+
+            return null;
+        }
+
+        public void SetActive(bool state)
+        {
+            gameObject.SetActive(state);
         }
     }
 }

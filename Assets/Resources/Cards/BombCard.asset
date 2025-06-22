@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e61d1904694ea31ac8508e380dab26, type: 3}
   m_Name: BombCard
   m_EditorClassIdentifier: 
+  CardImage: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  Damage: 10

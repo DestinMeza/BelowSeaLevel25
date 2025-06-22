@@ -4,11 +4,12 @@ using UnityEngine.UI;
 
 namespace BelowSeaLevel_25
 {
-    public abstract class MonoButton : MonoBehaviour
+    public abstract class MonoButton : MonoBehaviour, IUIElement
     {
         public abstract void OnInteract();
+        public abstract void SetActive(bool state);
     }
-    
+
     public class ButtonScript : MonoButton
     {
         public UnityEvent unityAction;
@@ -16,6 +17,11 @@ namespace BelowSeaLevel_25
         public override void OnInteract()
         {
             unityAction.Invoke();
+        }
+
+        public override void SetActive(bool state)
+        {
+            gameObject.SetActive(state);
         }
     }
 }

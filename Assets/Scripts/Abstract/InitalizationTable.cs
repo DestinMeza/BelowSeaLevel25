@@ -6,6 +6,8 @@ namespace BelowSeaLevel_25
     [System.Serializable]
     public class InitalizationTable<T> where T : ScriptableObject
     {
+        public int Count => tableData.Count;
+
         [System.Serializable]
         public class TableEntry
         {
@@ -21,7 +23,7 @@ namespace BelowSeaLevel_25
 
         [SerializeField]
         private List<TableEntry> tableData;
-        
+
         public T Get(string keyName)
         {
             var entry = tableData.Find(x => x.KeyName == keyName);
@@ -33,6 +35,11 @@ namespace BelowSeaLevel_25
             }
 
             return entry.ScriptableObject;
+        }
+
+        public string GetKey(int index)
+        {
+            return tableData[index].KeyName;
         }
     }
 }

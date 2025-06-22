@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static BelowSeaLevel_25.Globals.GameState;
 
 namespace BelowSeaLevel_25
 {
@@ -9,6 +10,9 @@ namespace BelowSeaLevel_25
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+
+        public Transform CannonStartPos;
+
         private List<Manager> managers;
 
         /// <summary>
@@ -27,16 +31,26 @@ namespace BelowSeaLevel_25
         {
             Instance.managers = new List<Manager>()
             {
+                //Core
                 GetComponent<DebugManager>(),
                 GetComponent<AudioManager>(),
                 GetComponent<InputManager>(),
-                GetComponent<CardManager>()
+                GetComponent<UIManager>(),
+
+                //Game Specfic
+                GetComponent<CardManager>(),
+                GetComponent<EntityManager>()
             };
         }
 
         private void Init()
         {
+            PlayerStartingPosition = CannonStartPos.position;
+
             managers.ForEach(x => x.Init());
+
+            //Queue Starting Sequence
+            ActivePlayer = EntityManager.Spawn("Cannon", PlayerStartingPosition) as MonoCannonEntity;
         }
-    }  
+    }
 }

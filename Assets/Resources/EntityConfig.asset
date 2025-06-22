@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e720665de012143a819d43f41e8bde, type: 3}
-  m_Name: LazerCard
+  m_Script: {fileID: 11500000, guid: c4d1683eb6a4de1ab858e359dcb92ae4, type: 3}
+  m_Name: EntityConfig
   m_EditorClassIdentifier: 
-  CardImage: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  Damage: 5
+  m_MaxCannonCount: 1
+  m_MaxEnemyCount: 30
+  m_MaxProjectileCount: 20

@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.XR;
 using System;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using static BelowSeaLevel_25.Globals.Enums;
 
 namespace BelowSeaLevel_25
 {
@@ -13,14 +16,8 @@ namespace BelowSeaLevel_25
     /// </summary>
     internal class InputManager : MonoManager<InputManager>
     {
-        public enum InputState
-        {
-            FreePointer,
-            HandMode,
-            SelectDiscard
-        }
-
-        private InputState inputState;
+        public delegate void OnPlayCard();
+        public static OnPlayCard OnPlayCardCallback = delegate { };
 
         private bool hasMouseInput;
         private bool hasKeyboardInput;
@@ -30,17 +27,12 @@ namespace BelowSeaLevel_25
             hasMouseInput = Input.GetMouseButtonDown(0);
             hasKeyboardInput = Input.GetButtonDown("Submit");
 
-            switch (inputState)
+            switch (UIManager.State)
             {
-                case InputState.FreePointer:
-                    FreePointerState();
-                    break;
-                case InputState.HandMode:
-                    HandModeState();
-                    break;
-                case InputState.SelectDiscard:
-                    SelectDiscardState();
-                    break;
+                case UIState.FreePointer: FreePointerState(); return;
+                case UIState.HandMode: HandModeState(); return;
+                case UIState.PlayCardMode: PlayCardState(); return;
+                case UIState.SelectDiscard: SelectDiscardState(); return;
             }
         }
 
@@ -56,9 +48,10 @@ namespace BelowSeaLevel_25
 
             if (hasMouseInput)
             {
-                if (TryQueryMouseRaycast(x => x.collider.GetComponentInParent<MonoButton>() != null, out var hitObjects))
+                if (TryQueryMouseRaycast(x => x.gameObject.GetComponent<MonoButton>() != null, out var hitObjects))
                 {
-                    MonoButton buttonClicked = hitObjects.First().collider.GetComponent<MonoButton>();
+                    Debug.Log("Hit Button!");
+                    MonoButton buttonClicked = hitObjects.First().gameObject.GetComponent<MonoButton>();
                     buttonClicked.OnInteract();
                     return;
                 }
@@ -69,19 +62,35 @@ namespace BelowSeaLevel_25
         {
             if (hasMouseInput)
             {
-                if (TryQueryMouseRaycast(x => x.collider.GetComponentInParent<MonoButton>() != null, out var hitButtons))
+                if (TryQueryMouseRaycast(x => x.gameObject.GetComponent<MonoButton>() != null, out var hitButtons))
                 {
-                    MonoButton buttonClicked = hitButtons.First().collider.GetComponent<MonoButton>();
+                    MonoButton buttonClicked = hitButtons.First().gameObject.GetComponent<MonoButton>();
                     buttonClicked.OnInteract();
                     return;
                 }
 
-                if (TryQueryMouseRaycast(x => x.collider.GetComponentInParent<MonoCard>() != null, out var hitCards))
+                if (TryQueryMouseRaycast(x => x.gameObject.GetComponentInParent<MonoCard>() != null, out var hitCards))
                 {
-                    MonoCard selectedCard = hitCards.First().collider.GetComponentInParent<MonoCard>();
+                    MonoCard selectedCard = hitCards.First().gameObject.GetComponentInParent<MonoCard>();
                     selectedCard.OnActivate();
                     return;
                 }
+            }
+        }
+
+        public void PlayCardState()
+        {
+            if (hasMouseInput)
+            {
+                if (TryQueryMouseRaycast(x => x.gameObject.GetComponent<MonoButton>() != null, out var hitObjects))
+                {
+                    Debug.Log("Hit Button!");
+                    MonoButton buttonClicked = hitObjects.First().gameObject.GetComponent<MonoButton>();
+                    buttonClicked.OnInteract();
+                    return;
+                }
+
+                OnPlayCardCallback();
             }
         }
 
@@ -89,36 +98,36 @@ namespace BelowSeaLevel_25
         {
             if (hasMouseInput)
             {
-                if (TryQueryMouseRaycast(x => x.collider.GetComponentInParent<MonoButton>() != null, out var hitButtons))
+                if (TryQueryMouseRaycast(x => x.gameObject.GetComponent<MonoButton>() != null, out var hitButtons))
                 {
-                    MonoButton buttonClicked = hitButtons.First().collider.GetComponent<MonoButton>();
+                    MonoButton buttonClicked = hitButtons.First().gameObject.GetComponent<MonoButton>();
                     buttonClicked.OnInteract();
                     return;
                 }
 
-                if (TryQueryMouseRaycast(x => x.collider.GetComponentInParent<MonoCard>() != null, out var hitObjects))
+                if (TryQueryMouseRaycast(x => x.gameObject.GetComponentInParent<MonoCard>() != null, out var hitObjects))
                 {
-                    MonoCard selectedCard = hitObjects.First().collider.GetComponentInParent<MonoCard>();
+                    MonoCard selectedCard = hitObjects.First().gameObject.GetComponentInParent<MonoCard>();
                     selectedCard.OnDiscard();
 
-                    inputState = InputState.FreePointer;
+                    UIManager.SetUIState(UIState.FreePointer);
                     return;
                 }
             }
         }
 
-        public bool TryQueryMouseRaycast(Func<RaycastHit2D, bool> query, out List<RaycastHit2D> hitEvents)
+        public bool TryQueryMouseRaycast(Func<RaycastResult, bool> query, out List<RaycastResult> hitResults)
         {
-            List<RaycastHit2D> hitObjects = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero).ToList();
-            hitEvents = hitObjects.Where(query).ToList();
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.position = Input.mousePosition;
 
-            return hitEvents.Count != 0;
-        }
+            hitResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, hitResults);
+            hitResults = hitResults.Where(query).ToList();
 
+            Debug.Log($"Mouse Hit: {hitResults.Count}");
 
-        public static void ForceDiscard()
-        {
-            Instance.inputState = InputState.SelectDiscard;
+            return hitResults.Count > 0;
         }
     }
 }

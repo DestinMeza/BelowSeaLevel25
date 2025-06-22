@@ -11,7 +11,18 @@ namespace BelowSeaLevel_25
     {
         [SerializeField]
         private Card[] m_Cards;
-        
-        public Card[] Cards => m_Cards;
+
+        public Card[] Cards => GetNewCardInstances();
+
+        private Card[] GetNewCardInstances()
+        {
+            Card[] cards = new Card[m_Cards.Length];
+            for (int i = 0; i < m_Cards.Length; i++)
+            {
+                cards[i] = Card.CreateInstance(m_Cards[i].GetType()) as Card;
+            }
+
+            return cards;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace BelowSeaLevel_25
         // This really just makes the shuffle consistent by choice for now.
         public const int SHUFFLE_SEED = 10101;
         private Card[] m_Cards;
-        private int drawIndex;
+        private int drawIndex = 0;
         
         public Deck(Card[] cards)
         {
@@ -26,13 +26,13 @@ namespace BelowSeaLevel_25
         {
             Random random = new Random(SHUFFLE_SEED);
 
-            for (int i = 0; i < Cards.Length; i++)
+            for (int i = 0; i < m_Cards.Length; i++)
             {
-                int randomSwapIndex = random.Next(0, Cards.Length);
+                int randomSwapIndex = random.Next(0, m_Cards.Length);
 
-                Card temp = Cards[randomSwapIndex];
-                Cards[randomSwapIndex] = Cards[i];
-                Cards[i] = temp;
+                Card temp = m_Cards[randomSwapIndex];
+                m_Cards[randomSwapIndex] = m_Cards[i];
+                m_Cards[i] = temp;
             }
         }
 
@@ -42,7 +42,7 @@ namespace BelowSeaLevel_25
         /// <returns></returns>
         public Card Draw()
         {
-            if (Cards.Length == drawIndex + 1)
+            if (m_Cards.Length == drawIndex + 1)
             {
                 drawIndex = -1;
                 Shuffle();
@@ -50,7 +50,7 @@ namespace BelowSeaLevel_25
 
             drawIndex++;
 
-            return Cards[drawIndex];
+            return m_Cards[drawIndex];
         }
     }
 }
