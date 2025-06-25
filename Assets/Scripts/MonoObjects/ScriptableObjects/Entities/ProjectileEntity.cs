@@ -11,11 +11,13 @@ namespace BelowSeaLevel_25
     [CreateAssetMenu(fileName = "ProjectileEntity", menuName = "Scriptable Objects/Entities/ProjectileEntity")]
     public class ProjectileEntity : Entity, IProjectile
     {
-        public string Name;
-        public Sprite ProjectileSprite;
-        public int Damage;
-        public float Speed;
+        [SerializeField] private string Name;
+        [SerializeField] private Sprite ProjectileSprite;
+        [SerializeField] private int Damage;
+        [SerializeField] private float Speed;
 
+        public string GetName() => Name;
+        public Sprite GetProjectileSprite() => ProjectileSprite;
         public int GetDamage() => Damage;
         public float GetSpeed() => Speed;
     }

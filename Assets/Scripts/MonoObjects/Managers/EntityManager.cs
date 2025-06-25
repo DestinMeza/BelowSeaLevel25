@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.EditorTools;
@@ -46,12 +47,22 @@ namespace BelowSeaLevel_25
             spawner.Init();
         }
 
-        public static MonoEntity Spawn(string key, Vector3 targetPosition, float upAngleDegrees = 0)
+        public static T Spawn<T>(string key, Vector3 targetPosition, float upAngleDegrees = 0, Action<MonoEntity> onSpawnEvent = null) where T : MonoEntity
+        {
+            return SpawnInternal(key, targetPosition, upAngleDegrees, onSpawnEvent) as T;
+        }
+
+        private static MonoEntity SpawnInternal(string key, Vector3 targetPosition, float upAngleDegrees = 0, Action<MonoEntity> onSpawnEvent = null)
         {
             if (!Instance.m_AllEntities.TryGetValue(key, out List<MonoEntity> entities))
             {
                 Debug.LogError($"Failed spawning object with key {key}");
                 return null;
+            }
+
+            if (onSpawnEvent == null)
+            {
+                onSpawnEvent = delegate { };
             }
 
             Debug.Log($"Spawning {key}...");
@@ -66,6 +77,8 @@ namespace BelowSeaLevel_25
                 monoEntity.Init(entity);
                 entities.Add(monoEntity);
             }
+
+            monoEntity.OnSpawn(onSpawnEvent);
 
             float angleInRads = Mathf.Deg2Rad * upAngleDegrees;
 

@@ -9,14 +9,11 @@ namespace BelowSeaLevel_25
         public int MaxEnemyCount => m_MaxEnemyCount;
         public int MaxProjectileCount => m_MaxProjectileCount;
 
-        [SerializeField]
-        private int m_MaxCannonCount;
+        [SerializeField] private int m_MaxCannonCount;
 
-        [SerializeField]
-        private int m_MaxEnemyCount;
+        [SerializeField] private int m_MaxEnemyCount;
 
-        [SerializeField]
-        private int m_MaxProjectileCount;
+        [SerializeField] private int m_MaxProjectileCount;
 
         public int GetMaxFromKey(string key)
         {

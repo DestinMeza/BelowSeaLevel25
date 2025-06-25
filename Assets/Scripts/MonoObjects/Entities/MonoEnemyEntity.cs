@@ -47,9 +47,19 @@ namespace BelowSeaLevel_25
 
             if (entity != null)
             {
-                SubHealth(entity.GetDamage());
-                entity.gameObject.SetActive(false);
+                ProcessDamage(entity);
             }
+        }
+
+        public void ProcessDamage(MonoProjectileEntity entity)
+        { 
+            SubHealth(entity.GetDamage());
+            entity.gameObject.SetActive(false);
+        }
+
+        public void ProcessDamage(MonoLazerEntity entity)
+        { 
+            SubHealth(entity.GetDamage());
         }
 
         public void SubHealth(int damage)

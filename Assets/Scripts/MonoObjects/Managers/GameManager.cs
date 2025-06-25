@@ -104,7 +104,7 @@ namespace BelowSeaLevel_25
             managers.ForEach(x => x.Init());
 
             //Queue Starting Sequence
-            ActivePlayer = EntityManager.Spawn("Cannon", PlayerStartingPosition) as MonoCannonEntity;
+            ActivePlayer = EntityManager.Spawn<MonoCannonEntity>("Cannon", PlayerStartingPosition);
         }
     }
 }

@@ -8,12 +8,13 @@ namespace BelowSeaLevel_25
         public float CannonRotationSpeed = 10;
         public Transform CannonPivot;
         public Transform FiringPoint;
+        public Vector3 Direction;
 
         public void Update()
         {
-            Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - CannonPivot.position;
+            Direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - CannonPivot.position;
 
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg;
             CannonPivot.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
         }
     }

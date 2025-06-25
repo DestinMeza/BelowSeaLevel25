@@ -53,7 +53,7 @@ namespace BelowSeaLevel_25
             float spawnPositionX = Random.Range(m_SpawnPosition.x, m_SpawnPosition.y);
             Vector3 spawnPosition = new Vector3(spawnPositionX, transform.position.y, 0);
 
-            EntityManager.Spawn(enemyName, spawnPosition);
+            EntityManager.Spawn<MonoEnemyEntity>(enemyName, spawnPosition);
             lastSpawnTime = Time.time;
 
             NextSpawnEntry();

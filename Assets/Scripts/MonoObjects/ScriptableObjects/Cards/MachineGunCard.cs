@@ -1,11 +1,10 @@
-using System.Collections;
 using UnityEngine;
 using static BelowSeaLevel_25.Globals;
 
 namespace BelowSeaLevel_25
 {
-    [CreateAssetMenu(fileName = "BombCard", menuName = "Scriptable Objects/BombCard")]
-    public class BombCard : Card
+    [CreateAssetMenu(fileName = "MachineGunCard", menuName = "Scriptable Objects/MachineGunCard")]
+    public class MachineGunCard : Card
     {
         public override void OnActivate()
         {
@@ -13,15 +12,16 @@ namespace BelowSeaLevel_25
             Transform transform = GameState.ActivePlayer.CannonPivot.transform;
 
             float upAngle = Vector3.Angle(transform.up, target.up);
+
             MonoProjectileEntity projectileEntity = EntityManager.Spawn<MonoProjectileEntity>(
-                key: "Bomb",
+                key: "MachineGun",
                 targetPosition: target.position,
                 upAngleDegrees: upAngle,
                 onSpawnEvent: 
                 delegate (MonoEntity x)
                 {
                     MonoProjectileEntity projectileEntity = x as MonoProjectileEntity;
-                    projectileEntity.TargetDirection = transform.up;
+                    projectileEntity.TargetDirection = GameState.ActivePlayer.Direction.normalized;
                 } 
             );
         }

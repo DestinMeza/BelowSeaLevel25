@@ -746,12 +746,15 @@ MonoBehaviour:
     - KeyName: Bomb
       ScriptableObject: {fileID: 11400000, guid: e480aeb4f9b669391b1282ba4be60733, type: 2}
     - KeyName: Lazer
-      ScriptableObject: {fileID: 11400000, guid: e8244ca1dc54c00ff9c65d446e168378, type: 2}
+      ScriptableObject: {fileID: 11400000, guid: 8feefb59af38dd7f1b920b50b6effe08, type: 2}
+    - KeyName: MachineGun
+      ScriptableObject: {fileID: 11400000, guid: 2f77069d8cb3911e9bcf92fb6d49b1ab, type: 2}
   prefabs:
   - {fileID: 2667526789171442184, guid: 10310411f2808b3539d7da2998f72555, type: 3}
   - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
   - {fileID: 7194252502693501006, guid: f885188e6ed02aaafa7f9b4c1809827a, type: 3}
-  - {fileID: 8962450840599297898, guid: 185edae0aa09bb323b2cc710e1f3bd17, type: 3}
+  - {fileID: 5793285322776024079, guid: 185edae0aa09bb323b2cc710e1f3bd17, type: 3}
+  - {fileID: 8962450840599297898, guid: 4ca2a10407876c41481c9ad20f81a93b, type: 3}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

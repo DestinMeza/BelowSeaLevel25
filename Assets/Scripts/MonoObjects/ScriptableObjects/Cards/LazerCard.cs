@@ -11,9 +11,17 @@ namespace BelowSeaLevel_25
             Transform target = GameState.ActivePlayer.FiringPoint.transform;
             Transform transform = GameState.ActivePlayer.CannonPivot.transform;
 
-            float upAngle = Vector3.Angle(transform.up, target.up);
-            MonoProjectileEntity projectileEntity = EntityManager.Spawn("Lazer", target.position, upAngle) as MonoProjectileEntity;
-            projectileEntity.TargetDirection = transform.up;
+            MonoLazerEntity lazerEntity = EntityManager.Spawn<MonoLazerEntity>(
+                key: "Lazer",
+                targetPosition: target.position,
+                upAngleDegrees: 0,
+                onSpawnEvent: 
+                delegate (MonoEntity x)
+                { 
+                    MonoLazerEntity lazerEntity = x as MonoLazerEntity;
+                    lazerEntity.TargetDirection = target.up;
+                } 
+            );
         }
     }
 }
