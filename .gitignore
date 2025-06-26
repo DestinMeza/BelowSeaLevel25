@@ -6,6 +6,7 @@ ProjectSettings/
 Temp/
 UserSettings/
 
+*.blob
 .vscode/
 
 Assembly-CSharp.csproj

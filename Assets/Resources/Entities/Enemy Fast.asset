@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2951b0cd90c6973b39331087497d2ec2, type: 3}
-  m_Name: MachineGunCard
+  m_Script: {fileID: 11500000, guid: 7f0a685827454367cb650131e51bbb82, type: 3}
+  m_Name: Enemy Fast
   m_EditorClassIdentifier: 
-  CardImage: {fileID: 21300000, guid: 9684dee2da9fb4d939e890b8cfca8778, type: 3}
+  Name: Enemy
+  EnemySprite: {fileID: 0}
+  Score: 30
+  Health: 3
   Damage: 1
-  Count: 15
+  Speed: 4

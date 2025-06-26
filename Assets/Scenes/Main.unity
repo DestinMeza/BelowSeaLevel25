@@ -254,12 +254,12 @@ MonoBehaviour:
   - EnemyName: Enemy
     SpawnIntervalMin: 1
     SpawnIntervalMax: 2
-  - EnemyName: Enemy
-    SpawnIntervalMin: 3
-    SpawnIntervalMax: 5
-  - EnemyName: Enemy
-    SpawnIntervalMin: 3
-    SpawnIntervalMax: 5
+  - EnemyName: Enemy Fast
+    SpawnIntervalMin: 0.2
+    SpawnIntervalMax: 1
+  - EnemyName: Enemy Slow
+    SpawnIntervalMin: 5
+    SpawnIntervalMax: 6
 --- !u!1 &430915494
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +743,10 @@ MonoBehaviour:
       ScriptableObject: {fileID: 11400000, guid: 35648e8c91dc1af44af6d9070d535b6e, type: 2}
     - KeyName: Enemy
       ScriptableObject: {fileID: 11400000, guid: ae3f7bf449aaec31c8201130b8bddf6b, type: 2}
+    - KeyName: Enemy Fast
+      ScriptableObject: {fileID: 11400000, guid: 796d309204efbf0ee8a1d984f622c88d, type: 2}
+    - KeyName: Enemy Slow
+      ScriptableObject: {fileID: 11400000, guid: c71547f824e92da6caa38d27c3001f43, type: 2}
     - KeyName: Bomb
       ScriptableObject: {fileID: 11400000, guid: e480aeb4f9b669391b1282ba4be60733, type: 2}
     - KeyName: Lazer
@@ -751,6 +755,8 @@ MonoBehaviour:
       ScriptableObject: {fileID: 11400000, guid: 2f77069d8cb3911e9bcf92fb6d49b1ab, type: 2}
   prefabs:
   - {fileID: 2667526789171442184, guid: 10310411f2808b3539d7da2998f72555, type: 3}
+  - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
+  - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
   - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
   - {fileID: 7194252502693501006, guid: f885188e6ed02aaafa7f9b4c1809827a, type: 3}
   - {fileID: 5793285322776024079, guid: 185edae0aa09bb323b2cc710e1f3bd17, type: 3}
