@@ -1,12 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 namespace BelowSeaLevel_25
 {
     public class MonoProjectileEntity : MonoEntity
     {
+        public delegate void OnDeath();
+
+        public OnDeath OnDeathCallback = delegate { };
+
+
         public Rigidbody2D rb2D;
         public Vector3 TargetDirection;
 
+        private float lastEnabledTime = 0;
+        private float m_AliveTime;
         private int m_Damage;
         private float m_Speed;
 
@@ -15,14 +23,33 @@ namespace BelowSeaLevel_25
             base.Init(entity);
 
             IProjectile projectile = Entity as IProjectile;
+            m_AliveTime = projectile.GetAliveTime();
             m_Damage = projectile.GetDamage();
             m_Speed = projectile.GetSpeed();
+        }
+
+        public void Update()
+        {
+            if (Time.time - lastEnabledTime > m_AliveTime)
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void FixedUpdate()
         {
             rb2D.linearVelocity = TargetDirection * m_Speed;
             transform.up = rb2D.linearVelocity.normalized;
+        }
+
+        public override void OnEnable()
+        {
+            lastEnabledTime = Time.time;
+        }
+
+        public override void OnDisable()
+        {
+            OnDeathCallback();
         }
 
         public int GetDamage() => m_Damage;

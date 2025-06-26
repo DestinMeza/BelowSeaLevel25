@@ -9,13 +9,15 @@ namespace BelowSeaLevel_25
     {
         public LineRenderer lineRenderer;
         public Vector3 TargetDirection;
+        public delegate void OnDeath();
+        public OnDeath OnDeathCallback = delegate { };
 
         private int m_Damage;
 
         private int ProjectileLayer => LayerMask.NameToLayer("Projectile");
 
         private float lastEnabledTime = 0;
-        private float lazerDuration = 2;
+        private float m_lazerDuration = 2;
 
         private const int ORIGIN_INDEX = 0;
         private const int ENDING_INDEX = 1;
@@ -26,6 +28,8 @@ namespace BelowSeaLevel_25
 
             ILazer lazer = Entity as ILazer;
             m_Damage = lazer.GetDamage();
+            m_lazerDuration = lazer.GetAliveTime();
+
         }
 
         public override void OnEnable()
@@ -54,12 +58,16 @@ namespace BelowSeaLevel_25
 
         public void Update()
         {
-            if (Time.time - lastEnabledTime > lazerDuration)
+            if (Time.time - lastEnabledTime > m_lazerDuration)
             {
                 gameObject.SetActive(false);
             }
         }
 
+        public override void OnDisable()
+        {
+            OnDeathCallback();
+        }
 
         public int GetDamage() => m_Damage;
     }

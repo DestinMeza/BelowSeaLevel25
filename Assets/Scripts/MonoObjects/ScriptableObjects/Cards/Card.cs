@@ -17,6 +17,8 @@ namespace BelowSeaLevel_25
         public Sprite CardImage;
         public int Damage;
         public int Count;
+        public bool AutoLeftClickLock;
+        public float AutoLeftClickRate;
 
         public MonoCard MonoCard => m_MonoCardRef;
         private MonoCard m_MonoCardRef;
@@ -31,6 +33,8 @@ namespace BelowSeaLevel_25
             CardImage = other.CardImage;
             Damage = other.Damage;
             Count = other.Count;
+            AutoLeftClickLock = other.AutoLeftClickLock;
+            AutoLeftClickRate = other.AutoLeftClickRate;
         }
 
         public virtual string GetCardDetails()

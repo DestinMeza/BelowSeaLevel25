@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -24,6 +25,16 @@ namespace BelowSeaLevel_25
 
         public void OnPlayCardCallback()
         {
+            if (m_ActiveCard.AutoLeftClickLock)
+            {
+                StartCoroutine(AutoActivation());
+            }
+
+            PlayActiveCard();
+        }
+
+        public void PlayActiveCard()
+        { 
             if (m_ActiveCard == null)
             {
                 Debug.LogError("Tried playing a card when there is non actively selected.");
@@ -47,6 +58,22 @@ namespace BelowSeaLevel_25
                 m_CurrentCount = 0;
             }
         }
+        
+        public IEnumerator AutoActivation()
+        {
+            do
+            {
+                yield return new WaitForSeconds(m_ActiveCard.AutoLeftClickRate);
+
+                if (m_CurrentCount <= 0)
+                {
+                    break;
+                }
+
+                PlayActiveCard();
+
+            } while (m_CurrentCount > 0);
+        }
 
         public static void Draw()
         {
@@ -55,16 +82,18 @@ namespace BelowSeaLevel_25
 
         public static void SetActiveCard(Card card)
         {
+            Instance.StopCoroutine(Instance.AutoActivation());
+
             Instance.m_ActiveCard = card;
             UIManager.SetUIState(UIState.PlayCardMode);
         }
 
-        public static void PlayActiveCard()
+        public static void External_PlayActiveCard()
         {
             UIManager.SetUIState(UIState.FreePointer);
         }
 
-        public static void CancelActiveCard()
+        public static void External_CancelActiveCard()
         {
             UIManager.SetUIState(UIState.HandMode);
         }

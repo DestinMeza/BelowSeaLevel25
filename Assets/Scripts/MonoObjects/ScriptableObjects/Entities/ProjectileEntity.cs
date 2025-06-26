@@ -6,6 +6,7 @@ namespace BelowSeaLevel_25
     {
         int GetDamage();
         float GetSpeed();
+        float GetAliveTime();
     }
 
     [CreateAssetMenu(fileName = "ProjectileEntity", menuName = "Scriptable Objects/Entities/ProjectileEntity")]
@@ -15,10 +16,12 @@ namespace BelowSeaLevel_25
         [SerializeField] private Sprite ProjectileSprite;
         [SerializeField] private int Damage;
         [SerializeField] private float Speed;
+        [SerializeField] private float AliveTime;
 
         public string GetName() => Name;
         public Sprite GetProjectileSprite() => ProjectileSprite;
         public int GetDamage() => Damage;
         public float GetSpeed() => Speed;
+        public float GetAliveTime() => AliveTime;
     }
 }

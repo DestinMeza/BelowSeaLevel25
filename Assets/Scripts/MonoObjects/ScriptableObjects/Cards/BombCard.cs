@@ -20,9 +20,18 @@ namespace BelowSeaLevel_25
                 onSpawnEvent: 
                 delegate (MonoEntity x)
                 {
-                    MonoProjectileEntity projectileEntity = x as MonoProjectileEntity;
-                    projectileEntity.TargetDirection = transform.up;
-                } 
+                    MonoProjectileEntity bomb = x as MonoProjectileEntity;
+                    bomb.TargetDirection = transform.up;
+                    bomb.OnDeathCallback = delegate ()
+                    {
+                        Vector3 bombDeathPosition = bomb.transform.position;
+
+                        MonoProjectileEntity bombExplosionEntity = EntityManager.Spawn<MonoProjectileEntity>(
+                                       key: "BombExplosion",
+                                       targetPosition: bombDeathPosition
+                        );
+                    };
+                }
             );
         }
     }

@@ -749,6 +749,8 @@ MonoBehaviour:
       ScriptableObject: {fileID: 11400000, guid: c71547f824e92da6caa38d27c3001f43, type: 2}
     - KeyName: Bomb
       ScriptableObject: {fileID: 11400000, guid: e480aeb4f9b669391b1282ba4be60733, type: 2}
+    - KeyName: BombExplosion
+      ScriptableObject: {fileID: 11400000, guid: a7324ba09bd35ac2bb10e04687a702e4, type: 2}
     - KeyName: Lazer
       ScriptableObject: {fileID: 11400000, guid: 8feefb59af38dd7f1b920b50b6effe08, type: 2}
     - KeyName: MachineGun
@@ -759,6 +761,7 @@ MonoBehaviour:
   - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
   - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
   - {fileID: 7194252502693501006, guid: f885188e6ed02aaafa7f9b4c1809827a, type: 3}
+  - {fileID: 5912621241652373125, guid: 4c2fc8148b1290a8181805d01d29f24c, type: 3}
   - {fileID: 5793285322776024079, guid: 185edae0aa09bb323b2cc710e1f3bd17, type: 3}
   - {fileID: 8962450840599297898, guid: 4ca2a10407876c41481c9ad20f81a93b, type: 3}
 --- !u!1 &619394800

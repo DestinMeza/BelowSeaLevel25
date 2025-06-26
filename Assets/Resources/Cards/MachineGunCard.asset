@@ -15,3 +15,5 @@ MonoBehaviour:
   CardImage: {fileID: 21300000, guid: 9684dee2da9fb4d939e890b8cfca8778, type: 3}
   Damage: 1
   Count: 15
+  AutoLeftClickLock: 1
+  AutoLeftClickRate: 0.05
