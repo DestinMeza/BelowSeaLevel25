@@ -8,6 +8,7 @@ namespace BelowSeaLevel_25
         public int GetDamage();
         public int GetHealth();
         public float GetSpeed();
+        public Sprite GetSprite();
     }
 
     [CreateAssetMenu(fileName = "Enemy", menuName = "Scriptable Objects/Entities/Enemy")]

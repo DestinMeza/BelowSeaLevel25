@@ -285,5 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fef372abfdb644b890dde6da6d2b07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6238254276512116665}
   rb2D: {fileID: 2330380328001198269}
   TargetDirection: {x: 0, y: -1, z: 0}
+  RelativeFacingDirection: {x: 0, y: 1}
+  currentHealth: 0

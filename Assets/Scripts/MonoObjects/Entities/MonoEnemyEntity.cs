@@ -4,8 +4,12 @@ namespace BelowSeaLevel_25
 {
     public class MonoEnemyEntity : MonoEntity
     {
+        public SpriteRenderer spriteRenderer;
         public Rigidbody2D rb2D;
         public Vector3 TargetDirection = Vector3.down;
+        public Vector2 RelativeFacingDirection = Vector2.down;
+
+        public Vector2 TargetVelocity = new Vector2();
 
         public int currentHealth;
         public int MaxHealth => m_Health;
@@ -14,8 +18,11 @@ namespace BelowSeaLevel_25
         private int m_Damage;
         private int m_Health;
         private float m_Speed;
+        private Sprite m_Sprite;
 
         public int GetDamage() => m_Damage;
+
+        public float GetSpeed() => m_Speed;
 
         public override void OnEnable()
         {
@@ -31,14 +38,35 @@ namespace BelowSeaLevel_25
             m_Health = enemy.GetHealth();
             m_Damage = enemy.GetDamage();
             m_Score = enemy.GetScore();
+            m_Sprite = enemy.GetSprite();
+
+            if (m_Sprite != null)
+            {
+                spriteRenderer.sprite = m_Sprite;
+            }
+
+            TargetVelocity = TargetDirection * m_Speed;
+        }
+
+        public void Update()
+        { 
+
         }
 
         public void FixedUpdate()
         {
-            IEnemy enemy = Entity as IEnemy;
-
             rb2D.linearVelocity = TargetDirection * m_Speed;
-            transform.up = rb2D.linearVelocity.normalized;
+            transform.up = RelativeFacingDirection;
+        }
+
+        public void SetTargetVelocity(Vector2 targetVelocity)
+        {
+            TargetVelocity = targetVelocity;
+        }
+
+        public void SetRelativeFacingDirection(Vector2 relativeFacingDir)
+        {
+            RelativeFacingDirection = relativeFacingDir;
         }
 
         public void OnCollisionEnter2D(Collision2D collision)
