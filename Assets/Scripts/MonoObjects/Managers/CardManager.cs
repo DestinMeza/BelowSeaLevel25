@@ -25,6 +25,8 @@ namespace BelowSeaLevel_25
 
         public void OnPlayCardCallback()
         {
+            AudioManager.PlaySFXClip("Discard");
+
             if (m_ActiveCard.AutoLeftClickLock)
             {
                 StartCoroutine(AutoActivation());
@@ -41,8 +43,6 @@ namespace BelowSeaLevel_25
                 return;
             }
 
-            AudioManager.PlaySFXClip("Discard");
-
             m_ActiveCard.OnActivate();
             m_CurrentCount++;
 
@@ -50,7 +50,7 @@ namespace BelowSeaLevel_25
 
             Debug.Log($"Card Reactivate Remaining: {remainingActivations}");
 
-            if (0 >= remainingActivations)
+            if (remainingActivations <= 0)
             {
                 MonoCard monoCard = m_ActiveCard.MonoCard;
                 GameHand.Discard(monoCard);

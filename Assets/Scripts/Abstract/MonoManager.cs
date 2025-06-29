@@ -33,5 +33,10 @@ namespace BelowSeaLevel_25
             Debug.Log($"Initalize {typeof(T).Name}");
         }
 
+        public virtual void OnDestroy()
+        {
+            Instance = null;
+        }
+
     }
 }

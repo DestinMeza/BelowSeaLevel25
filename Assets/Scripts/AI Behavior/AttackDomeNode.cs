@@ -48,6 +48,8 @@ namespace BelowSeaLevel_25.AI
             enemyEntity.SetRelativeFacingDirection(targetDirection);
             yield return new WaitForSeconds(1.0f);
 
+            enemyEntity.StartAttackEffect();
+
             targetDirection = GameState.ActivePlayer.transform.position - enemyEntity.transform.position;
             targetDirection = targetDirection.normalized;
 

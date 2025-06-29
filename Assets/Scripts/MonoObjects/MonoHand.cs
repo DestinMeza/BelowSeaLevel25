@@ -75,33 +75,24 @@ namespace BelowSeaLevel_25
             bool forceDiscard = ActiveHand.Length >= m_HandConfig.MaxCards + 1;
 
             List<MonoCard> monoCards = UICards.ToList();
-            monoCards.Sort(SortByActiveCard);
 
             if (forceDiscard)
             {
+                MonoCard monoCardToDiscard = null;
+
                 for (int i = 0; i < monoCards.Count; i++)
                 {
-                    Debug.Log($"Card {i}: {monoCards[i].CardRef}");
+                    if (monoCards[i].isActiveAndEnabled)
+                    {
+                        monoCardToDiscard = monoCards[i];
+                        break;
+                    }
                 }
 
-                Discard(monoCards.First());
+                Discard(monoCardToDiscard);
             }
 
             UpdateActiveHand();
-        }
-
-        private int SortByActiveCard(MonoCard card, MonoCard other)
-        {
-            if (card.HasCard && !other.HasCard)
-            {
-                return -1;
-            }
-            if (!card.HasCard && other.HasCard)
-            {
-                return 1;
-            }
-
-            return 0;
         }
 
         public void Discard(MonoCard cardToDiscard)

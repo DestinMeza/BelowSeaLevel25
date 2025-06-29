@@ -11,6 +11,7 @@ namespace BelowSeaLevel_25
         public Rigidbody2D rb2D;
         public Vector3 TargetDirection = Vector3.down;
         public Vector2 RelativeFacingDirection = Vector2.down;
+        public Collider2D physicsCollider;
 
         public Vector2 TargetVelocity = new Vector2();
 
@@ -33,11 +34,15 @@ namespace BelowSeaLevel_25
         public float GetSpeed() => m_Speed;
 
         private bool IsDead => currentHealth <= 0;
+        private Coroutine m_ActiveEffectColorCoroutine;
+        private Coroutine m_ActiveEffectCoroutine;
+        private Color m_StartingRendererColor;
 
         public override void OnEnable()
         {
             currentHealth = m_Health;
             m_BehaviorTree?.Reset();
+            physicsCollider.enabled = true;
         }
 
         public override void Init(Entity entity)
@@ -54,6 +59,8 @@ namespace BelowSeaLevel_25
             m_AttackSprites = enemy.GetAttackSprites();
             m_DeathSprites = enemy.GetDeathSprites();
             m_AnimationSpeed = enemy.GetAnimationSpeed();
+
+            m_StartingRendererColor = spriteRenderer.color;
 
             switch (enemy.GetEnemyKind())
             {
@@ -75,7 +82,6 @@ namespace BelowSeaLevel_25
         {
             if (IsDead)
             {
-                TargetVelocity = Vector2.zero;
                 return;
             }
 
@@ -119,7 +125,7 @@ namespace BelowSeaLevel_25
         public void ProcessDamage(MonoLazerEntity entity)
         {
             SubHealth(entity.GetDamage());
-            EntityManager.Spawn<MonoEffectEntity>("HitEffect", entity.transform.position);
+            EntityManager.Spawn<MonoEffectEntity>("HitEffect", transform.position);
         }
 
         public void SubHealth(int damage)
@@ -129,12 +135,52 @@ namespace BelowSeaLevel_25
             if (IsDead)
             {
                 GameManager.Player.AddScore(m_Score);
-                StartCoroutine(PlayDeathEffect());
+
+                if (m_ActiveEffectCoroutine != null)
+                {
+                    StopCoroutine(m_ActiveEffectCoroutine);
+                }
+
+                m_ActiveEffectCoroutine = StartCoroutine(PlayDeathEffect());
+                TargetVelocity = Vector2.zero;
+                physicsCollider.enabled = false;
             }
             else
             {
-                StartCoroutine(PlayHitEffect());
+                if (m_ActiveEffectCoroutine != null)
+                {
+                    StopCoroutine(m_ActiveEffectCoroutine);
+                }
+
+                m_ActiveEffectCoroutine = StartCoroutine(PlayHitEffect());
+
+                if (m_ActiveEffectColorCoroutine != null)
+                {
+                    StopCoroutine(m_ActiveEffectColorCoroutine);
+                    spriteRenderer.color = m_StartingRendererColor;
+                }
+                
+                m_ActiveEffectColorCoroutine = StartCoroutine(PlayColorHitEffect());
             }
+        }
+
+        public void StartAttackEffect()
+        { 
+           m_ActiveEffectCoroutine = StartCoroutine(PlayAttackEffect());
+        }
+
+        private IEnumerator PlayColorHitEffect()
+        {
+            yield return new WaitForEndOfFrame();
+
+            Color black = new Color(0, 0, 0, 1);
+            float duration = 1.0f;
+            for (float t = 0; t < duration; t += Time.deltaTime)
+            {
+                spriteRenderer.color = Color.Lerp(black, m_StartingRendererColor, t / duration);
+            }
+
+            spriteRenderer.color = m_StartingRendererColor;
         }
 
         private IEnumerator PlayHitEffect()
@@ -147,11 +193,12 @@ namespace BelowSeaLevel_25
                 yield return new WaitForSeconds(m_AnimationSpeed);
             }
 
+            m_ActiveEffectCoroutine = null;
             spriteRenderer.sprite = m_Sprite;
         }
-        
+
         private IEnumerator PlayAttackEffect()
-        { 
+        {
             yield return new WaitForEndOfFrame();
 
             for (int i = 0; i < m_AttackSprites.Count; i++)
@@ -160,6 +207,7 @@ namespace BelowSeaLevel_25
                 yield return new WaitForSeconds(m_AnimationSpeed);
             }
 
+            m_ActiveEffectCoroutine = null;
             spriteRenderer.sprite = m_Sprite;
         }
 
@@ -173,6 +221,7 @@ namespace BelowSeaLevel_25
                 yield return new WaitForSeconds(m_AnimationSpeed);
             }
 
+            m_ActiveEffectCoroutine = null;
             spriteRenderer.sprite = m_Sprite;
             gameObject.SetActive(false);
         }
