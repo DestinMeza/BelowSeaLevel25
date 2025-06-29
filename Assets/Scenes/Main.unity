@@ -679,6 +679,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMap:
     tableData: []
+  AudioSourcePrefab: {fileID: 4380684700055306291, guid: 2ee0ddd9e561b2c7892e138d7159d0ea, type: 3}
+  MasterMixer: {fileID: 24300002, guid: 2ac266330d4118ffdb5c56d262d2e28c, type: 2}
+  SFXMixer: {fileID: 4909004640296878106, guid: 2ac266330d4118ffdb5c56d262d2e28c, type: 2}
+  MusicMixer: {fileID: 6941530484759347834, guid: 2ac266330d4118ffdb5c56d262d2e28c, type: 2}
+  NumberOfSFXSources: 0
 --- !u!114 &530206526
 MonoBehaviour:
   m_ObjectHideFlags: 0
