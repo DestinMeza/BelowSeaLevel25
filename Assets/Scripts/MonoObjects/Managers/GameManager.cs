@@ -11,7 +11,7 @@ namespace BelowSeaLevel_25
 
         public int Score => m_Score;
         public int CurrentHealth => m_CurrentHealth;
-
+    
         private int m_CurrentHealth;
         private int m_Score;
 
@@ -89,6 +89,7 @@ namespace BelowSeaLevel_25
         public static void GameOver()
         {
             IsPlaying = false;
+            Instance.managers.ForEach(x => x.StopAllCoroutines());
         }
 
         //This is a pretty hacky reset, but it's game jam code so whatever D:<
@@ -105,7 +106,7 @@ namespace BelowSeaLevel_25
             managers.ForEach(x => x.Init());
 
             AudioManager.PlayMusic();
-            
+
             //Queue Starting Sequence
             ActivePlayer = EntityManager.Spawn<MonoCannonEntity>("Cannon", PlayerStartingPosition);
         }

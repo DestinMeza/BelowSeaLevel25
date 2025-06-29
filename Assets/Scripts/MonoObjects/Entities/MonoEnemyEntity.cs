@@ -141,6 +141,8 @@ namespace BelowSeaLevel_25
                     StopCoroutine(m_ActiveEffectCoroutine);
                 }
 
+                CardManager.AddPower(10);
+
                 m_ActiveEffectCoroutine = StartCoroutine(PlayDeathEffect());
                 TargetVelocity = Vector2.zero;
                 physicsCollider.enabled = false;

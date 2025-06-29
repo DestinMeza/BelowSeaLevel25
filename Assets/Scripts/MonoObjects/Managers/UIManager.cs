@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static BelowSeaLevel_25.Globals.Enums;
@@ -9,6 +10,7 @@ namespace BelowSeaLevel_25
     internal class UIManager : MonoManager<UIManager>
     {
         public Image HealthBarUI;
+        public Image PowerBarUI;
         public TMPro.TextMeshProUGUI ScoreUI;
 
         public static UIState State => Instance.uiState;
@@ -19,6 +21,8 @@ namespace BelowSeaLevel_25
         public ButtonScript CloseHandButton;
         public ButtonScript OpenHandButton;
         public ButtonScript CancelPlayButton;
+
+        public TextMeshProUGUI DrawCooldownText;
 
         private IUIElement[] Interfaces;
         private Dictionary<UIState, IUIElement[]> UICollections;
@@ -118,9 +122,21 @@ namespace BelowSeaLevel_25
             Instance.HealthBarUI.fillAmount = (float)GameManager.Player.CurrentHealth / (float)GameManager.Player.Health;
         }
 
+        public static void UpdatePower()
+        {
+            Instance.PowerBarUI.fillAmount = (float)CardManager.Instance.PowerValue / (float)CardManager.MAX_POWER_VALUE;
+        }
+
         public static void UpdateScore()
         {
             Instance.ScoreUI.text = GameManager.Player.Score.ToString();
+        }
+
+        public static void UpdateDrawCooldown()
+        {
+            float drawCooldown = CardManager.Instance.GetCurrentDrawCooldown();
+            Instance.DrawCooldownText.gameObject.SetActive(drawCooldown > 0);
+            Instance.DrawCooldownText.text = drawCooldown.ToString();
         }
     }
 }

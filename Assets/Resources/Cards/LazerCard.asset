@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LazerCard
   m_EditorClassIdentifier: 
   CardImage: {fileID: 8588255769013715031, guid: ce269d41e3161f276b623314e63f3716, type: 3}
-  Damage: 10
-  Count: 1
+  Damage: 3
+  Count: 3
   AutoLeftClickLock: 0
   AutoLeftClickRate: 0

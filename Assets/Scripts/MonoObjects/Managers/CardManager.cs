@@ -9,11 +9,26 @@ namespace BelowSeaLevel_25
 {
     internal class CardManager : MonoManager<CardManager>
     {
+        public const float MAX_POWER_VALUE = 100.0f;
+        public float PowerValue = 0.0f;
+        public float DrawCooldown = 3.0f;
+        public float PowerBarConsumeRate = 1.0f;
+
+
         public Card ActiveCard => m_ActiveCard;
         public MonoHand GameHand;
 
+        private bool m_IsPowerModeActive;
         private Card m_ActiveCard;
+        private Coroutine m_AutoActivationCoroutine;
+        private Coroutine m_ActiveConsumeBarCoroutine;
+
+        private bool HasPowerCard => PowerValue >= MAX_POWER_VALUE;
+        private bool CanDrawCard => m_IsPowerModeActive || m_CurrentDrawCooldown <= 0;
+        private float m_CurrentDrawCooldown = 0;
         private int m_CurrentCount = 0;
+
+        public float GetCurrentDrawCooldown() => m_CurrentDrawCooldown;
 
         public override void Init()
         {
@@ -23,20 +38,59 @@ namespace BelowSeaLevel_25
             InputManager.OnPlayCardCallback += OnPlayCardCallback;
         }
 
+        private void Update()
+        {
+            SubDrawCooldown();
+        }
+
+        private void SubDrawCooldown()
+        {
+            if (m_CurrentDrawCooldown > 0.0f)
+            {
+                m_CurrentDrawCooldown -= Time.deltaTime;
+
+                UIManager.UpdateDrawCooldown();
+            }
+        }
+
         public void OnPlayCardCallback()
         {
+            if (m_ActiveCard == null)
+            {
+                return;
+            }
+
+            if (HasPowerCard)
+            {
+                m_IsPowerModeActive = true;
+
+                if (m_ActiveConsumeBarCoroutine != null)
+                {
+                    StopCoroutine(m_ActiveConsumeBarCoroutine);
+                }
+
+                StartCoroutine(ConsumePowerBar());
+            }
+
             AudioManager.PlaySFXClip("Discard");
 
             if (m_ActiveCard.AutoLeftClickLock)
             {
-                StartCoroutine(AutoActivation());
-            }
+                if (m_AutoActivationCoroutine != null)
+                {
+                    StopCoroutine(m_AutoActivationCoroutine);
+                }
 
-            PlayActiveCard();
+                m_AutoActivationCoroutine = StartCoroutine(AutoActivation());
+            }
+            else
+            {
+                PlayActiveCard();
+            }
         }
 
         public void PlayActiveCard()
-        { 
+        {
             if (m_ActiveCard == null)
             {
                 Debug.LogError("Tried playing a card when there is non actively selected.");
@@ -44,6 +98,7 @@ namespace BelowSeaLevel_25
             }
 
             m_ActiveCard.OnActivate();
+
             m_CurrentCount++;
 
             int remainingActivations = m_ActiveCard.GetCount() - m_CurrentCount;
@@ -60,25 +115,64 @@ namespace BelowSeaLevel_25
                 m_CurrentCount = 0;
             }
         }
-        
+
         public IEnumerator AutoActivation()
         {
             do
             {
-                yield return new WaitForSeconds(m_ActiveCard.AutoLeftClickRate);
+                PlayActiveCard();
 
                 if (m_CurrentCount <= 0)
                 {
                     break;
                 }
 
-                PlayActiveCard();
+                yield return new WaitForSeconds(m_ActiveCard.AutoLeftClickRate);
 
             } while (m_CurrentCount > 0);
+
+            m_AutoActivationCoroutine = null;
+        }
+
+        public static void AddPower(float powerAmount)
+        {
+            Instance.PowerValue += powerAmount;
+
+            if (Instance.PowerValue >= MAX_POWER_VALUE)
+            {
+                Instance.PowerValue = Mathf.Min(MAX_POWER_VALUE, Instance.PowerValue);
+            }
+
+            UIManager.UpdatePower();
+        }
+
+        public static void SubPower(float powerAmount)
+        {
+            Instance.PowerValue -= powerAmount;
+            Instance.PowerValue = Mathf.Max(0, Instance.PowerValue);
+
+            if (Instance.PowerValue <= 0)
+            {
+                Instance.m_IsPowerModeActive = false;
+
+                if (Instance.m_ActiveConsumeBarCoroutine != null)
+                {
+                    Instance.StopCoroutine(Instance.m_ActiveConsumeBarCoroutine);
+                }
+            }
+
+            UIManager.UpdatePower();
         }
 
         public static void Draw()
         {
+            if (!Instance.CanDrawCard)
+            {
+                return;
+            }
+
+            Instance.m_CurrentDrawCooldown = Instance.DrawCooldown;
+
             AudioManager.PlaySFXClip("Draw");
             Instance.GameHand.Draw();
             Instance.GameHand.Draw();
@@ -100,7 +194,39 @@ namespace BelowSeaLevel_25
 
         public static void External_CancelActiveCard()
         {
+            MonoCard monoCard = Instance.m_ActiveCard.MonoCard;
+            Instance.GameHand.Discard(monoCard);
+            Instance.m_IsPowerModeActive = false;
+            Instance.m_ActiveCard = null;
+            Instance.m_CurrentCount = 0;
             UIManager.SetUIState(UIState.HandMode);
+
+            if (Instance.m_AutoActivationCoroutine != null)
+            {
+                Instance.StopCoroutine(Instance.m_AutoActivationCoroutine);
+            }
+
+            if (Instance.m_ActiveConsumeBarCoroutine != null)
+            {
+                Instance.StopCoroutine(Instance.m_ActiveConsumeBarCoroutine);
+            }
+        }
+
+        private IEnumerator ConsumePowerBar()
+        {
+            m_IsPowerModeActive = true;
+
+            while (m_IsPowerModeActive && enabled)
+            {
+                for (float t = 0; t < PowerBarConsumeRate; t += Time.deltaTime)
+                { 
+                    SubPower(Time.deltaTime);
+                    yield return new WaitForEndOfFrame();
+                }
+            }
+
+            m_ActiveConsumeBarCoroutine = null;
+            m_IsPowerModeActive = false;
         }
     }
 }
