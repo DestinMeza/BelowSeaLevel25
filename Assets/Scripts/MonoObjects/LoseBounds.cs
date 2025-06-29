@@ -13,6 +13,7 @@ namespace BelowSeaLevel_25
             }
 
             GameManager.Player.SubHealth(enemy.GetDamage());
+            AudioManager.PlaySFXClip("DomeHit");
             CameraManager.ShakeCamera(0.10f, 0.05f);
         }
     }

@@ -136,7 +136,7 @@ namespace BelowSeaLevel_25
         public static void UpdateDrawCooldown()
         {
             float drawCooldown = CardManager.Instance.GetCurrentDrawCooldown();
-            Instance.DrawCooldownText.gameObject.SetActive(drawCooldown > 0);
+            Instance.DrawCooldownText.gameObject.SetActive(CardManager.Instance.IsShowCooldown);
             Instance.DrawCooldownText.text = ((int)drawCooldown).ToString();
         }
 

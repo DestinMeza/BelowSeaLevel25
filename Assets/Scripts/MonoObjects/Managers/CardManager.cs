@@ -27,7 +27,7 @@ namespace BelowSeaLevel_25
         private bool CanDrawCard => m_IsPowerModeActive || m_CurrentDrawCooldown <= 0;
         private float m_CurrentDrawCooldown = 0;
         private int m_CurrentCount = 0;
-
+        public bool IsShowCooldown => m_CurrentDrawCooldown > 0 && !m_IsPowerModeActive;
         public float GetCurrentDrawCooldown() => m_CurrentDrawCooldown;
 
         public override void Init()

@@ -62,7 +62,7 @@ namespace BelowSeaLevel_25
         /// <summary>
         /// This is the function that is found by Unity
         /// </summary>
-        public void Start()
+        public void Awake()
         {
             Instance = this;
             Player = new Player();

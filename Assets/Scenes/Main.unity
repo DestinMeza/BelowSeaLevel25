@@ -907,6 +907,10 @@ MonoBehaviour:
       ScriptableObject: {fileID: 11400000, guid: a07b2c33465cbd7fbae7e539df780244, type: 2}
     - KeyName: MachineGun
       ScriptableObject: {fileID: 11400000, guid: 0d75154bb373c212ead9f0ccf046ef59, type: 2}
+    - KeyName: EnemyHit
+      ScriptableObject: {fileID: 11400000, guid: bcf707d9dde54f2a9a604502ab5deb97, type: 2}
+    - KeyName: DomeHit
+      ScriptableObject: {fileID: 11400000, guid: 0de0bd4a45a23cfb48e14ab907ddeb4b, type: 2}
     - KeyName: MusicTrack
       ScriptableObject: {fileID: 11400000, guid: 9bc3178e6b6fd9784bcf9f63ab8c8129, type: 2}
   AudioSourcePrefab: {fileID: 4380684700055306291, guid: 2ee0ddd9e561b2c7892e138d7159d0ea, type: 3}
@@ -927,7 +931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PowerValue: 0
-  DrawCooldown: 5
+  DrawCooldown: 8
   PowerBarConsumeRate: 16
   GameHand: {fileID: 1035927500}
 --- !u!114 &530206527

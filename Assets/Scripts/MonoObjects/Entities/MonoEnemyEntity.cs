@@ -120,12 +120,14 @@ namespace BelowSeaLevel_25
             EntityManager.Spawn<MonoEffectEntity>("HitEffect", entity.transform.position);
             entity.gameObject.SetActive(false);
             CameraManager.ShakeCamera(0.10f, 0.05f);
+            AudioManager.PlaySFXClip("EnemyHit");
         }
 
         public void ProcessDamage(MonoLazerEntity entity)
         {
             SubHealth(entity.GetDamage());
             EntityManager.Spawn<MonoEffectEntity>("HitEffect", transform.position);
+            AudioManager.PlaySFXClip("EnemyHit");
         }
 
         public void SubHealth(int damage)
