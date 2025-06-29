@@ -16,22 +16,24 @@ namespace BelowSeaLevel_25
 
     public class Spawner : MonoBehaviour
     {
+        public float spawnScale = 1.0f;
+        public float spawnAccumulator = 0.2f;
         public List<SpawnEntry> spawnEntries;
         private SpawnEntry m_ActiveSpawnEntry;
         private int m_CurrentIndex;
 
         private float lastSpawnTime;
-
+        private float m_CurrentSpawnScale;
         private Vector2 m_SpawnPosition;
-        private float m_RandomXSpawnPos;
         private Coroutine m_SpawnLoop;
-
 
         public void Init()
         {
             float spawnPointBounds = transform.localScale.x * 0.5f;
             m_ActiveSpawnEntry = spawnEntries.First();
             m_SpawnPosition = new Vector2(spawnPointBounds * -1, spawnPointBounds);
+
+            m_CurrentSpawnScale = Mathf.Min(1.0f, spawnScale);
 
             m_SpawnLoop = StartCoroutine("SpawnLoop");
         }
@@ -40,7 +42,7 @@ namespace BelowSeaLevel_25
         {
             while (Globals.GameState.IsPlaying)
             {
-                float waitTime = Random.Range(m_ActiveSpawnEntry.SpawnIntervalMin, m_ActiveSpawnEntry.SpawnIntervalMax);
+                float waitTime = Random.Range(m_ActiveSpawnEntry.SpawnIntervalMin / m_CurrentSpawnScale, m_ActiveSpawnEntry.SpawnIntervalMax / m_CurrentSpawnScale);
                 yield return new WaitForSeconds(waitTime);
 
                 Spawn();
@@ -65,6 +67,8 @@ namespace BelowSeaLevel_25
             if (m_CurrentIndex > spawnEntries.Count - 1)
             {
                 m_CurrentIndex = 0;
+
+                m_CurrentSpawnScale = Mathf.Max(1.0f, m_CurrentSpawnScale + spawnAccumulator);
             }
 
             SetActiveSpawnEntry(spawnEntries[m_CurrentIndex]);

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c195a4b1da9fdc37dbd04e6d4245524c, type: 3}
   m_Name: Bomb Launch Effect
   m_EditorClassIdentifier: 
-  m_AudioClip: {fileID: 0}
+  m_AudioClip: {fileID: 8300000, guid: 665ff434453834308ad26e289488c671, type: 3}
   m_AudioMixerType: 0

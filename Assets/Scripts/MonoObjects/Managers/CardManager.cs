@@ -41,6 +41,8 @@ namespace BelowSeaLevel_25
                 return;
             }
 
+            AudioManager.PlaySFXClip("Discard");
+
             m_ActiveCard.OnActivate();
             m_CurrentCount++;
 
@@ -77,6 +79,7 @@ namespace BelowSeaLevel_25
 
         public static void Draw()
         {
+            AudioManager.PlaySFXClip("Draw");
             Instance.GameHand.Draw();
             Instance.GameHand.Draw();
             Instance.GameHand.Draw();

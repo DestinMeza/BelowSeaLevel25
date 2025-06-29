@@ -13,6 +13,7 @@ namespace BelowSeaLevel_25
 
             GameState.ActivePlayer.PlayCannonEffect();
             GameState.ActivePlayer.PlayFiringEffectLazer();
+            AudioManager.PlaySFXClip("Lazer");
 
             MonoLazerEntity lazerEntity = EntityManager.Spawn<MonoLazerEntity>(
                 key: "Lazer",

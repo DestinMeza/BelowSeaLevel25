@@ -57,8 +57,8 @@ namespace BelowSeaLevel_25
 
             switch (enemy.GetEnemyKind())
             {
-                case EnemyKind.Angler:
-                    m_BehaviorTree = new AnglerFishTree(this);
+                case EnemyKind.Pufferfish:
+                    m_BehaviorTree = new PufferFishTree(this);
                     break;
             }
 
@@ -73,6 +73,12 @@ namespace BelowSeaLevel_25
 
         public void Update()
         {
+            if (IsDead)
+            {
+                TargetVelocity = Vector2.zero;
+                return;
+            }
+
             m_BehaviorTree.Process();
         }
 

@@ -104,6 +104,8 @@ namespace BelowSeaLevel_25
 
             managers.ForEach(x => x.Init());
 
+            AudioManager.PlayMusic();
+            
             //Queue Starting Sequence
             ActivePlayer = EntityManager.Spawn<MonoCannonEntity>("Cannon", PlayerStartingPosition);
         }

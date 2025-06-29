@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2831549301280993633}
   - component: {fileID: 4264988719562750474}
   - component: {fileID: 8279264542322745486}
-  m_Layer: 0
-  m_Name: Collider
+  m_Layer: 6
+  m_Name: EnemyCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,8 +134,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3061810206305002769}
   - component: {fileID: 6238254276512116665}
-  m_Layer: 0
-  m_Name: Sprite
+  m_Layer: 6
+  m_Name: EnemySprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -221,9 +221,9 @@ GameObject:
   m_Component:
   - component: {fileID: 196785022635126353}
   - component: {fileID: 2330380328001198269}
-  - component: {fileID: 7194252502693501006}
-  m_Layer: 0
-  m_Name: Bomb
+  - component: {fileID: 6428651560426232259}
+  m_Layer: 6
+  m_Name: Enemy Slow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -239,7 +239,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3061810206305002769}
@@ -273,7 +273,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7194252502693501006
+--- !u!114 &6428651560426232259
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,9 +282,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6759303683221089894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c31c3b01df651ccd9baf03401abea78, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fef372abfdb644b890dde6da6d2b07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 6238254276512116665}
   rb2D: {fileID: 2330380328001198269}
-  TargetDirection: {x: 0, y: 0, z: 0}
+  TargetDirection: {x: 0, y: -1, z: 0}
+  RelativeFacingDirection: {x: 0, y: 1}
+  TargetVelocity: {x: 0, y: 0}
+  currentHealth: 0

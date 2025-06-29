@@ -678,12 +678,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMap:
-    tableData: []
+    tableData:
+    - KeyName: BombExplode
+      ScriptableObject: {fileID: 11400000, guid: 1d02d62a012d05c7f8addca0e4b24b27, type: 2}
+    - KeyName: BombLaunch
+      ScriptableObject: {fileID: 11400000, guid: 6d738e72ea4059c0ba28b36349e44f44, type: 2}
+    - KeyName: Discard
+      ScriptableObject: {fileID: 11400000, guid: 6f483bba9bfa8d2a984f284757b40db7, type: 2}
+    - KeyName: Draw
+      ScriptableObject: {fileID: 11400000, guid: 6b566d17e2e0343ff8a72b1bf031f6e7, type: 2}
+    - KeyName: Lazer
+      ScriptableObject: {fileID: 11400000, guid: a07b2c33465cbd7fbae7e539df780244, type: 2}
+    - KeyName: MachineGun
+      ScriptableObject: {fileID: 11400000, guid: 0d75154bb373c212ead9f0ccf046ef59, type: 2}
+    - KeyName: MusicTrack
+      ScriptableObject: {fileID: 11400000, guid: 9bc3178e6b6fd9784bcf9f63ab8c8129, type: 2}
   AudioSourcePrefab: {fileID: 4380684700055306291, guid: 2ee0ddd9e561b2c7892e138d7159d0ea, type: 3}
   MasterMixer: {fileID: 24300002, guid: 2ac266330d4118ffdb5c56d262d2e28c, type: 2}
   SFXMixer: {fileID: 4909004640296878106, guid: 2ac266330d4118ffdb5c56d262d2e28c, type: 2}
   MusicMixer: {fileID: 6941530484759347834, guid: 2ac266330d4118ffdb5c56d262d2e28c, type: 2}
-  NumberOfSFXSources: 0
+  NumberOfSFXSources: 6
 --- !u!114 &530206526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,8 +780,8 @@ MonoBehaviour:
   prefabs:
   - {fileID: 2667526789171442184, guid: 10310411f2808b3539d7da2998f72555, type: 3}
   - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
-  - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
-  - {fileID: 6428651560426232259, guid: f144b3442a7bb9be59c91f8468ff29da, type: 3}
+  - {fileID: 6428651560426232259, guid: 96f7ec536f4909c05bfb1c5f48d47cb3, type: 3}
+  - {fileID: 6428651560426232259, guid: 609ef490cfa49cf2e8fb8fe3a7a9bc51, type: 3}
   - {fileID: 7194252502693501006, guid: f885188e6ed02aaafa7f9b4c1809827a, type: 3}
   - {fileID: 8989085298781139895, guid: 4c2fc8148b1290a8181805d01d29f24c, type: 3}
   - {fileID: 5793285322776024079, guid: 185edae0aa09bb323b2cc710e1f3bd17, type: 3}

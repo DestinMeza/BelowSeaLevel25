@@ -18,5 +18,5 @@ MonoBehaviour:
   - {fileID: 4142210862014912447, guid: d93fa46160f76b5dea8c6b583c5ae455, type: 3}
   - {fileID: -5451258294122076356, guid: d93fa46160f76b5dea8c6b583c5ae455, type: 3}
   AnimationSpeed: 0.1
-  Radius: 5
+  Radius: 3
   Damage: 10

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c195a4b1da9fdc37dbd04e6d4245524c, type: 3}
   m_Name: Card Draw Effect
   m_EditorClassIdentifier: 
-  m_AudioClip: {fileID: 0}
+  m_AudioClip: {fileID: 8300000, guid: 61a5f63b1bcd64d0ca76c2da7f4a2a5c, type: 3}
   m_AudioMixerType: 0

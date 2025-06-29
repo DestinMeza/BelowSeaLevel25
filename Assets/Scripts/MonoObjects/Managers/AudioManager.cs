@@ -22,7 +22,7 @@ namespace BelowSeaLevel_25
         private AudioSource m_MusicSource;
         private List<AudioSource> m_AudioSources;
         private List<AudioSource> ActiveAudioSources => m_AudioSources
-            .Where(x => !x.isPlaying && !x.isActiveAndEnabled)
+            .Where(x => !x.isPlaying)
             .ToList();
 
         public override void Init()
@@ -40,6 +40,7 @@ namespace BelowSeaLevel_25
             }
 
             m_MusicSource = Instantiate(AudioSourcePrefab).GetComponent<AudioSource>();
+            m_MusicSource.loop = true;
             m_MusicSource.outputAudioMixerGroup = MusicMixer;
         }
 
@@ -50,7 +51,6 @@ namespace BelowSeaLevel_25
             IAudio audio = Instance.audioMap.Get(MUSIC_TRACK) as IAudio;
 
             Instance.m_MusicSource.clip = audio.GetAudioClip();
-            Instance.m_MusicSource.loop = false;
             Instance.m_MusicSource.Play();
         }
 

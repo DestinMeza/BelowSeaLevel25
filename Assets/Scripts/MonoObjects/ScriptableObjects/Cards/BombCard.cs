@@ -14,6 +14,7 @@ namespace BelowSeaLevel_25
 
             GameState.ActivePlayer.PlayCannonEffect();
             GameState.ActivePlayer.PlayFiringEffect();
+            AudioManager.PlaySFXClip("BombLaunch");
 
             float upAngle = Vector3.Angle(transform.up, target.up);
             MonoProjectileEntity projectileEntity = EntityManager.Spawn<MonoProjectileEntity>(
@@ -28,6 +29,7 @@ namespace BelowSeaLevel_25
                     bomb.OnDeathCallback = delegate ()
                     {
                         Vector3 bombDeathPosition = bomb.transform.position;
+                        AudioManager.PlaySFXClip("BombExplode");
 
                         MonoExplosionEntity bombExplosionEntity = EntityManager.Spawn<MonoExplosionEntity>(
                                        key: "BombExplosion",

@@ -12,9 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0a685827454367cb650131e51bbb82, type: 3}
   m_Name: Enemy Slow
   m_EditorClassIdentifier: 
-  Name: Enemy
-  EnemySprite: {fileID: 21300000, guid: 82ce5f1ed063345df84a7130c22de9bd, type: 3}
+  Name: Enemy Slow
+  EnemyKind: 0
+  EnemySprite: {fileID: -371740909335319690, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
   Score: 600
-  Health: 6
+  Health: 10
   Damage: 3
   Speed: 1
+  AnimationSpeed: 0.1
+  HitSprites:
+  - {fileID: 83131122054123967, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -371740909335319690, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  AttackSprites:
+  - {fileID: -371740909335319690, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: 83131122054123967, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -9098394080347696226, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -7328882374816866238, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -371740909335319690, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  DeathSprites:
+  - {fileID: 83131122054123967, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -9098394080347696226, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -7328882374816866238, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: -5166930337481690322, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: 2758892428433715691, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
+  - {fileID: 7478407674237482187, guid: a08d1099f373202b1a4c81421655f14d, type: 3}

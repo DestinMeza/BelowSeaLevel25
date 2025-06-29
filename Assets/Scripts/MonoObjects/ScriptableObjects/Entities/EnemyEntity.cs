@@ -8,7 +8,7 @@ namespace BelowSeaLevel_25
     [Serializable]
     public enum EnemyKind
     {
-        Angler
+        Pufferfish
     }
     
     public interface IEnemy

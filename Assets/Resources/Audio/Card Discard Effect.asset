@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c195a4b1da9fdc37dbd04e6d4245524c, type: 3}
   m_Name: Card Discard Effect
   m_EditorClassIdentifier: 
-  m_AudioClip: {fileID: 0}
+  m_AudioClip: {fileID: 8300000, guid: 443979a66bfdc4e2c8a2162ca2cda0ed, type: 3}
   m_AudioMixerType: 0

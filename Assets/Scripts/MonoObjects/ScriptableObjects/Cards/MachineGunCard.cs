@@ -13,6 +13,7 @@ namespace BelowSeaLevel_25
 
             GameState.ActivePlayer.PlayCannonEffect();
             GameState.ActivePlayer.PlayFiringEffect();
+            AudioManager.PlaySFXClip("MachineGun");
 
             float upAngle = Vector3.Angle(transform.up, target.up);
 
