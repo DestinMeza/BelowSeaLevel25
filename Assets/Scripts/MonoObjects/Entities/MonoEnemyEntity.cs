@@ -74,7 +74,7 @@ namespace BelowSeaLevel_25
                 spriteRenderer.sprite = m_Sprite;
             }
 
-            TargetVelocity = TargetDirection * m_Speed;
+            TargetVelocity = Vector2.zero;
         }
 
 

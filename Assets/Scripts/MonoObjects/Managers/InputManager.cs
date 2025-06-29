@@ -27,7 +27,7 @@ namespace BelowSeaLevel_25
             hasMouseInput = Input.GetMouseButtonDown(0);
             hasKeyboardInput = Input.GetButtonDown("Submit");
 
-            if (!Globals.GameState.IsPlaying && (hasMouseInput || hasKeyboardInput))
+            if (!Globals.GameState.IsPlaying && GameManager.Instance.CanInputRestart && (hasMouseInput || hasKeyboardInput))
             {
                 GameManager.Reset();
                 return;
@@ -134,6 +134,11 @@ namespace BelowSeaLevel_25
             Debug.Log($"Mouse Hit: {hitResults.Count}");
 
             return hitResults.Count > 0;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
         }
     }
 }

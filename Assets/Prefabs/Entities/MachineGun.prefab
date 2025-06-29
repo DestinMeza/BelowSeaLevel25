@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2831549301280993633}
   - component: {fileID: 4264988719562750474}
   - component: {fileID: 8279264542322745486}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3061810206305002769}
   - component: {fileID: 6238254276512116665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 196785022635126353}
   - component: {fileID: 2330380328001198269}
   - component: {fileID: 8962450840599297898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

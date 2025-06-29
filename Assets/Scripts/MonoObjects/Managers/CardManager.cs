@@ -181,8 +181,12 @@ namespace BelowSeaLevel_25
 
         public static void SetActiveCard(Card card)
         {
-            Instance.StopCoroutine(Instance.AutoActivation());
+            if (Instance.m_AutoActivationCoroutine != null)
+            {
+                Instance.StopCoroutine(Instance.m_AutoActivationCoroutine);
+            }
 
+            Instance.m_CurrentCount = 0;
             Instance.m_ActiveCard = card;
             UIManager.SetUIState(UIState.PlayCardMode);
         }
@@ -218,15 +222,20 @@ namespace BelowSeaLevel_25
 
             while (m_IsPowerModeActive && enabled)
             {
-                for (float t = 0; t < PowerBarConsumeRate; t += Time.deltaTime)
-                { 
-                    SubPower(Time.deltaTime);
+                for (float t = 0; t < 1.0f; t += Time.deltaTime)
+                {
+                    SubPower(Time.deltaTime * PowerBarConsumeRate);
                     yield return new WaitForEndOfFrame();
                 }
             }
 
             m_ActiveConsumeBarCoroutine = null;
             m_IsPowerModeActive = false;
+        }
+        
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
         }
     }
 }

@@ -42,6 +42,8 @@ namespace BelowSeaLevel_25
         /// <returns></returns>
         public Card Draw()
         {
+            Card cardToReturn = m_Cards[drawIndex];
+
             if (m_Cards.Length == drawIndex + 1)
             {
                 drawIndex = -1;
@@ -49,8 +51,7 @@ namespace BelowSeaLevel_25
             }
 
             drawIndex++;
-
-            return m_Cards[drawIndex];
+            return cardToReturn;
         }
     }
 }

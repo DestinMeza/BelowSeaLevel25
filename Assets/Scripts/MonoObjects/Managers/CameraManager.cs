@@ -27,7 +27,7 @@ namespace BelowSeaLevel_25
         {
             Instance.PlayCameraShake(cameraShakeDuration, cameraShakeMagnitude);
         }
-        
+
         private void PlayCameraShake(float cameraShakeDuration, float cameraShakeMagnitude = 2)
         {
             if (m_ActiveCameraShake != null)
@@ -81,6 +81,11 @@ namespace BelowSeaLevel_25
             yield return new WaitForEndOfFrame();
 
             m_ActiveCameraShake = null;
+        }
+        
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
         }
     }
 }

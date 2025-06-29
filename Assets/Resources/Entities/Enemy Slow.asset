@@ -16,7 +16,7 @@ MonoBehaviour:
   EnemyKind: 0
   EnemySprite: {fileID: -371740909335319690, guid: a08d1099f373202b1a4c81421655f14d, type: 3}
   Score: 600
-  Health: 10
+  Health: 5
   Damage: 3
   Speed: 1
   AnimationSpeed: 0.1

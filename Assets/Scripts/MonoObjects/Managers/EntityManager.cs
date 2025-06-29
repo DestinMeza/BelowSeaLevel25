@@ -13,7 +13,7 @@ namespace BelowSeaLevel_25
         public InitalizationTable<Entity> entityTable;
 
         [Tooltip("Ensure mapping is the same as Entity Table")]
-        public MonoEntity[] prefabs; 
+        public MonoEntity[] prefabs;
         private Dictionary<string, List<MonoEntity>> m_AllEntities;
         private Dictionary<string, MonoEntity> m_EntityPrefabMap;
 
@@ -87,6 +87,24 @@ namespace BelowSeaLevel_25
             monoEntity.gameObject.SetActive(true);
 
             return monoEntity;
+        }
+
+        public static void DeactivateAllEntities()
+        {
+            foreach (var keypair in Instance.m_AllEntities)
+            {
+                List<MonoEntity> monoEntities = keypair.Value;
+
+                for (int i = 0; i < monoEntities.Count; i++)
+                {
+                    monoEntities[i].gameObject.SetActive(false);
+                }
+            }
+        }
+        
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
         }
     }
 }

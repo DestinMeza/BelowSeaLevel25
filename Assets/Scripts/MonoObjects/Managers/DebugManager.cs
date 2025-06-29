@@ -11,5 +11,10 @@ namespace BelowSeaLevel_25
             base.Init();
             Debug.Log("Hello World!");
         }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
     }
 }

@@ -69,5 +69,10 @@ namespace BelowSeaLevel_25
             source.loop = false;
             source.Play();
         }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
     }
 }

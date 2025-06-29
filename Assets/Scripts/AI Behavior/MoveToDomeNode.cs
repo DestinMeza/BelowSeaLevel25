@@ -43,7 +43,7 @@ namespace BelowSeaLevel_25.AI
             targetDirection = targetDirection.normalized;
 
             enemyEntity.SetTargetVelocity(targetDirection * enemyEntity.GetSpeed());
-            enemyEntity.SetRelativeFacingDirection(targetDirection);
+            enemyEntity.SetRelativeFacingDirection(targetDirection * -1);
             yield return new Coroutines.WaitTillReachedDistance(m_MonoEntity.transform, GameState.ActivePlayer.transform, 2);
 
             enemyEntity.SetTargetVelocity(new Vector2(0, 0));

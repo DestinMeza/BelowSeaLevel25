@@ -12,6 +12,7 @@ namespace BelowSeaLevel_25
         public Image HealthBarUI;
         public Image PowerBarUI;
         public TMPro.TextMeshProUGUI ScoreUI;
+        public TMPro.TextMeshProUGUI GameOverUI;
 
         public static UIState State => Instance.uiState;
         public UIState uiState = UIState.FreePointer;
@@ -137,6 +138,21 @@ namespace BelowSeaLevel_25
             float drawCooldown = CardManager.Instance.GetCurrentDrawCooldown();
             Instance.DrawCooldownText.gameObject.SetActive(drawCooldown > 0);
             Instance.DrawCooldownText.text = ((int)drawCooldown).ToString();
+        }
+
+        public static void DisplayGameOver()
+        {
+            Instance.GameOverUI.gameObject.SetActive(true);
+        }
+
+        public static void HideGameOver()
+        { 
+            Instance.GameOverUI.gameObject.SetActive(false);
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
         }
     }
 }

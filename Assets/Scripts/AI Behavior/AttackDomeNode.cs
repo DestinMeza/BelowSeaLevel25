@@ -45,7 +45,7 @@ namespace BelowSeaLevel_25.AI
 
             float backupSwimSpeed = 2;
             enemyEntity.SetTargetVelocity(targetDirection * backupSwimSpeed);
-            enemyEntity.SetRelativeFacingDirection(targetDirection);
+            enemyEntity.SetRelativeFacingDirection(targetDirection * -1);
             yield return new WaitForSeconds(1.0f);
 
             enemyEntity.StartAttackEffect();
@@ -55,7 +55,7 @@ namespace BelowSeaLevel_25.AI
 
             float attackSwimSpeed = 10;
             enemyEntity.SetTargetVelocity(targetDirection * attackSwimSpeed);
-            enemyEntity.SetRelativeFacingDirection(targetDirection);
+            enemyEntity.SetRelativeFacingDirection(targetDirection * -1);
             
             yield return new Coroutines.WaitTillReachedDistance(m_MonoEntity.transform, GameState.ActivePlayer.transform, 1);
             m_IsRunning = false;

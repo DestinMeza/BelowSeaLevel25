@@ -56,6 +56,9 @@ namespace BelowSeaLevel_25
 
         private List<Manager> managers;
 
+        public bool CanInputRestart => Time.time - m_GameOverStartTime > 3.0f;
+        private float m_GameOverStartTime;
+
         /// <summary>
         /// This is the function that is found by Unity
         /// </summary>
@@ -88,6 +91,10 @@ namespace BelowSeaLevel_25
 
         public static void GameOver()
         {
+            EntityManager.DeactivateAllEntities();
+            UIManager.DisplayGameOver();
+            Instance.m_GameOverStartTime = Time.time;
+
             IsPlaying = false;
             Instance.managers.ForEach(x => x.StopAllCoroutines());
         }
@@ -105,6 +112,7 @@ namespace BelowSeaLevel_25
 
             managers.ForEach(x => x.Init());
 
+            UIManager.HideGameOver();
             AudioManager.PlayMusic();
 
             //Queue Starting Sequence
