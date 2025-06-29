@@ -8,14 +8,16 @@ using static BelowSeaLevel_25.Globals;
 
 namespace BelowSeaLevel_25.AI
 {
-    internal class AnglerFishTree : Tree
+    internal class AnglerFishTree : BehaviorTree
     {
+        public const float ATTACK_DIST = 2;
         public AnglerFishTree(MonoEntity monoEntity) : base(monoEntity,
             new SelectorNode(
-                new ConditionalNode(() => Vector3.Distance(monoEntity.gameObject.transform.position, GameState.PlayerStartingPosition) < 10, new MoveToDomeNode())
+                new ConditionalNode(() => Vector3.Distance(monoEntity.gameObject.transform.position, GameState.PlayerStartingPosition) > ATTACK_DIST, new MoveToDomeNode()),
+                new AttackDomeNode()
             ))
-        { 
-            
+        {
+
         }
     }
 

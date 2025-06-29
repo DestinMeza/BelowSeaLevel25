@@ -11,6 +11,9 @@ namespace BelowSeaLevel_25
             Transform target = GameState.ActivePlayer.FiringPoint.transform;
             Transform transform = GameState.ActivePlayer.CannonPivot.transform;
 
+            GameState.ActivePlayer.PlayCannonEffect();
+            GameState.ActivePlayer.PlayFiringEffect();
+
             float upAngle = Vector3.Angle(transform.up, target.up);
 
             MonoProjectileEntity projectileEntity = EntityManager.Spawn<MonoProjectileEntity>(

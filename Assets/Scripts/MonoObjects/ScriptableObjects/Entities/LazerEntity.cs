@@ -9,7 +9,7 @@ namespace BelowSeaLevel_25
         float GetAliveTime();
     }
 
-    [CreateAssetMenu(fileName = "LazerEntity", menuName = "Scriptable Objects/Entities/LazerEntity")]
+    [CreateAssetMenu(fileName = "Lazer", menuName = "Scriptable Objects/Entities/Lazer")]
     public class LazerEntity : Entity, ILazer
     {
         [SerializeField] private string Name;

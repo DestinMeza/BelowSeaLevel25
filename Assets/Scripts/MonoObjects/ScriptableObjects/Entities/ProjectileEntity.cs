@@ -4,12 +4,13 @@ namespace BelowSeaLevel_25
 {
     public interface IProjectile
     {
-        int GetDamage();
-        float GetSpeed();
-        float GetAliveTime();
+        public int GetDamage();
+        public float GetSpeed();
+        public float GetAliveTime();
+        public Sprite GetProjectileSprite();
     }
 
-    [CreateAssetMenu(fileName = "ProjectileEntity", menuName = "Scriptable Objects/Entities/ProjectileEntity")]
+    [CreateAssetMenu(fileName = "Projectile", menuName = "Scriptable Objects/Entities/Projectile")]
     public class ProjectileEntity : Entity, IProjectile
     {
         [SerializeField] private string Name;

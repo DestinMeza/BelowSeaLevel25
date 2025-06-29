@@ -9,14 +9,14 @@ namespace BelowSeaLevel_25
 
         public OnDeath OnDeathCallback = delegate { };
 
-
+        public SpriteRenderer spriteRenderer;
         public Rigidbody2D rb2D;
         public Vector3 TargetDirection;
-
         private float lastEnabledTime = 0;
         private float m_AliveTime;
         private int m_Damage;
         private float m_Speed;
+        private Sprite m_ProjectileSprite;
 
         public override void Init(Entity entity)
         {
@@ -26,6 +26,9 @@ namespace BelowSeaLevel_25
             m_AliveTime = projectile.GetAliveTime();
             m_Damage = projectile.GetDamage();
             m_Speed = projectile.GetSpeed();
+            m_ProjectileSprite = projectile.GetProjectileSprite();
+
+            spriteRenderer.sprite = m_ProjectileSprite;
         }
 
         public void Update()

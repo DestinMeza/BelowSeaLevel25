@@ -12,6 +12,11 @@ namespace BelowSeaLevel_25.AI
             m_nodeToExecuteOnSucess = nodeToExecuteOnSucess;
         }
 
+        public override void Reset()
+        {
+            m_nodeToExecuteOnSucess.Reset();
+        }
+
         public override NodeState Process(MonoEntity monoEntity)
         {
             bool state = m_condition();
@@ -21,7 +26,7 @@ namespace BelowSeaLevel_25.AI
                 return m_nodeToExecuteOnSucess.Process(monoEntity);
             }
 
-            return NodeState.Running;
+            return NodeState.Success;
         }
     }
 }

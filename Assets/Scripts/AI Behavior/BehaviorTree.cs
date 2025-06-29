@@ -9,7 +9,7 @@ namespace BelowSeaLevel_25.AI
     /// <summary>
     /// This data structure contains AI behaviors
     /// </summary>
-    internal class Tree
+    internal class BehaviorTree
     {
         public MonoEntity MonoEntity => m_MonoEntity;
         private MonoEntity m_MonoEntity;
@@ -17,7 +17,7 @@ namespace BelowSeaLevel_25.AI
         public Node RootNode => m_RootNode;
         private Node m_RootNode;
 
-        public Tree(MonoEntity monoEntity, Node rootNode)
+        public BehaviorTree(MonoEntity monoEntity, Node rootNode)
         {
             m_MonoEntity = monoEntity;
             m_RootNode = rootNode;
@@ -28,5 +28,9 @@ namespace BelowSeaLevel_25.AI
             m_RootNode.Process(MonoEntity);
         }
 
+        public void Reset()
+        {
+            m_RootNode.Reset();
+        }
     }
 }

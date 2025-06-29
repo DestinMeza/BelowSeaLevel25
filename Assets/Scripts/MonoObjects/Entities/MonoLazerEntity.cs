@@ -14,7 +14,7 @@ namespace BelowSeaLevel_25
 
         private int m_Damage;
 
-        private int ProjectileLayer => LayerMask.NameToLayer("Projectile");
+        private int EnemyLayer => LayerMask.GetMask("Enemy");
 
         private float lastEnabledTime = 0;
         private float m_lazerDuration = 2;
@@ -38,7 +38,7 @@ namespace BelowSeaLevel_25
             float lazerLength = 20;
 
             Ray ray = new Ray(transform.position, TargetDirection);
-            RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, lazerLength, ProjectileLayer);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction, lazerLength, EnemyLayer);
 
             lineRenderer.SetPosition(ORIGIN_INDEX, ray.origin);
             lineRenderer.SetPosition(ENDING_INDEX, ray.GetPoint(lazerLength));
@@ -49,6 +49,11 @@ namespace BelowSeaLevel_25
                 .ToList();
 
             Debug.Log($"Hit Enemies: {enemies.Count}");
+
+            if (enemies.Count > 0)
+            { 
+                CameraManager.ShakeCamera(0.25f, 0.05f);
+            }
 
             for (int i = 0; i < enemies.Count; i++)
             {

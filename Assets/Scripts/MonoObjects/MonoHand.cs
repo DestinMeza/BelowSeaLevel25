@@ -106,7 +106,7 @@ namespace BelowSeaLevel_25
 
         public void Discard(MonoCard cardToDiscard)
         {
-            if (null != cardToDiscard)
+            if (null == cardToDiscard)
             { 
                 return;
             }

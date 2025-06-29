@@ -285,5 +285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c31c3b01df651ccd9baf03401abea78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6238254276512116665}
   rb2D: {fileID: 2330380328001198269}
   TargetDirection: {x: 0, y: 0, z: 0}

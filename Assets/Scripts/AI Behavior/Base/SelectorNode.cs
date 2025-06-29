@@ -11,6 +11,15 @@ namespace BelowSeaLevel_25.AI
             m_childrenNodes = childrenNodes;
         }
 
+        public override void Reset()
+        {
+            currentIndex = 0;
+            for (int i = 0; i < m_childrenNodes.Length; i++)
+            {
+                m_childrenNodes[i].Reset();
+            }
+        }
+
         public override NodeState Process(MonoEntity monoEntity)
         {
             if (currentIndex >= m_childrenNodes.Length)

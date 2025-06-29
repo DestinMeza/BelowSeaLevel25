@@ -12,6 +12,9 @@ namespace BelowSeaLevel_25
             Transform target = GameState.ActivePlayer.FiringPoint.transform;
             Transform transform = GameState.ActivePlayer.CannonPivot.transform;
 
+            GameState.ActivePlayer.PlayCannonEffect();
+            GameState.ActivePlayer.PlayFiringEffect();
+
             float upAngle = Vector3.Angle(transform.up, target.up);
             MonoProjectileEntity projectileEntity = EntityManager.Spawn<MonoProjectileEntity>(
                 key: "Bomb",
@@ -26,7 +29,7 @@ namespace BelowSeaLevel_25
                     {
                         Vector3 bombDeathPosition = bomb.transform.position;
 
-                        MonoProjectileEntity bombExplosionEntity = EntityManager.Spawn<MonoProjectileEntity>(
+                        MonoExplosionEntity bombExplosionEntity = EntityManager.Spawn<MonoExplosionEntity>(
                                        key: "BombExplosion",
                                        targetPosition: bombDeathPosition
                         );

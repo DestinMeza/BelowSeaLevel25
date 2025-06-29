@@ -11,6 +11,9 @@ namespace BelowSeaLevel_25
             Transform target = GameState.ActivePlayer.FiringPoint.transform;
             Transform transform = GameState.ActivePlayer.CannonPivot.transform;
 
+            GameState.ActivePlayer.PlayCannonEffect();
+            GameState.ActivePlayer.PlayFiringEffectLazer();
+
             MonoLazerEntity lazerEntity = EntityManager.Spawn<MonoLazerEntity>(
                 key: "Lazer",
                 targetPosition: target.position,

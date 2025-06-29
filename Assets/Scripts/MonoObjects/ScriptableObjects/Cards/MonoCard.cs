@@ -40,6 +40,7 @@ namespace BelowSeaLevel_25
 
             CardRef.SetGameCard(this);
             OnDrawCallback(CardRef);
+            SetActive(true);
         }
 
         public void OnSelect()
@@ -56,6 +57,7 @@ namespace BelowSeaLevel_25
         {
             CardRef.SetGameCard(null);
             CardRef = null;
+            SetActive(false);
         }
 
         public void SetCard(Card card)

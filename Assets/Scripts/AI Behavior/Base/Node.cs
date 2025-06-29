@@ -14,6 +14,8 @@ namespace BelowSeaLevel_25.AI
 
         }
 
+        public virtual void Reset() { }
+
         public abstract NodeState Process(MonoEntity monoEntity);
     }
 }

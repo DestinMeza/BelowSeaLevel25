@@ -75,6 +75,7 @@ namespace BelowSeaLevel_25
             {
                 //Core
                 GetComponent<DebugManager>(),
+                GetComponent<CameraManager>(),
                 GetComponent<AudioManager>(),
                 GetComponent<InputManager>(),
                 GetComponent<UIManager>(),

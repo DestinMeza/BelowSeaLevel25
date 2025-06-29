@@ -13,4 +13,20 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: 
   BarrelBase: {fileID: 21300000, guid: 2613412f8fd1f4ac08193535614df4f8, type: 3}
-  BarrelSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  BarrelSprite: {fileID: -6809907661698028246, guid: bc5ecc58d293fead2bec616a851f1aad, type: 3}
+  AnimationSpeed: 0.1
+  CannonFiringSprites:
+  - {fileID: -6809907661698028246, guid: bc5ecc58d293fead2bec616a851f1aad, type: 3}
+  - {fileID: -7488512282933653102, guid: bc5ecc58d293fead2bec616a851f1aad, type: 3}
+  FireEffectSprites:
+  - {fileID: 683580197922454078, guid: a75b1a83215c42b9a9be75b8990e9ae5, type: 3}
+  - {fileID: 443777383469526630, guid: a75b1a83215c42b9a9be75b8990e9ae5, type: 3}
+  - {fileID: -4794960085640521143, guid: a75b1a83215c42b9a9be75b8990e9ae5, type: 3}
+  - {fileID: 7201543326511277912, guid: a75b1a83215c42b9a9be75b8990e9ae5, type: 3}
+  - {fileID: -5828010741037372874, guid: a75b1a83215c42b9a9be75b8990e9ae5, type: 3}
+  LazerEffectSprites:
+  - {fileID: 2677830923846848196, guid: ce269d41e3161f276b623314e63f3716, type: 3}
+  - {fileID: 8588255769013715031, guid: ce269d41e3161f276b623314e63f3716, type: 3}
+  - {fileID: -763023359253048264, guid: ce269d41e3161f276b623314e63f3716, type: 3}
+  - {fileID: 1470375571432523875, guid: ce269d41e3161f276b623314e63f3716, type: 3}
+  - {fileID: -258989745, guid: ce269d41e3161f276b623314e63f3716, type: 3}

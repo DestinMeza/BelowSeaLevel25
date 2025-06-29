@@ -7,12 +7,19 @@ namespace BelowSeaLevel_25.AI
 {
     internal class MoveToDomeNode : LeafNode
     {
+        private NodeState m_NodeState = NodeState.Running;
         private MonoEntity m_MonoEntity;
-        private float m_StartTime;
         private bool m_IsRunning;
         public MoveToDomeNode() : base()
         {
 
+        }
+
+        public override void Reset()
+        {
+            m_MonoEntity?.StopCoroutine(MoveTowardDomeSequence());
+            m_IsRunning = false;
+            m_NodeState = NodeState.Running;
         }
 
         public override NodeState Process(MonoEntity monoEntity)
@@ -21,24 +28,28 @@ namespace BelowSeaLevel_25.AI
 
             if (!m_IsRunning)
             {
-                m_StartTime = Time.time;
                 monoEntity.StartCoroutine(MoveTowardDomeSequence());
             }
 
-            return NodeState.Running;
+            return m_NodeState;
         }
 
         private IEnumerator MoveTowardDomeSequence()
         {
+            m_IsRunning = true;
             var enemyEntity = m_MonoEntity as MonoEnemyEntity;
 
             Vector3 targetDirection = GameState.ActivePlayer.transform.position - enemyEntity.transform.position;
             targetDirection = targetDirection.normalized;
 
             enemyEntity.SetTargetVelocity(targetDirection * enemyEntity.GetSpeed());
+            enemyEntity.SetRelativeFacingDirection(targetDirection);
             yield return new Coroutines.WaitTillReachedDistance(m_MonoEntity.transform, GameState.ActivePlayer.transform, 2);
 
+            enemyEntity.SetTargetVelocity(new Vector2(0, 0));
+
             m_IsRunning = false;
+            m_NodeState = NodeState.Success;
         }
     }
 }

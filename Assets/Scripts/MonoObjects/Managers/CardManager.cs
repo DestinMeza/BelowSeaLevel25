@@ -78,6 +78,8 @@ namespace BelowSeaLevel_25
         public static void Draw()
         {
             Instance.GameHand.Draw();
+            Instance.GameHand.Draw();
+            Instance.GameHand.Draw();
         }
 
         public static void SetActiveCard(Card card)

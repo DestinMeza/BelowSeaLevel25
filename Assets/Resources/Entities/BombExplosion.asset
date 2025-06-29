@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc57fae492c4fa10aac5384e0d765e20, type: 3}
+  m_Script: {fileID: 11500000, guid: a370ada021a7822578f7698d9bf51995, type: 3}
   m_Name: BombExplosion
   m_EditorClassIdentifier: 
-  Name: BombExplosion
-  ProjectileSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  Damage: 5
-  Speed: 0
-  AliveTime: 1
+  Sprites:
+  - {fileID: 1282003924607320132, guid: d93fa46160f76b5dea8c6b583c5ae455, type: 3}
+  - {fileID: -4890962941390521189, guid: d93fa46160f76b5dea8c6b583c5ae455, type: 3}
+  - {fileID: 4142210862014912447, guid: d93fa46160f76b5dea8c6b583c5ae455, type: 3}
+  - {fileID: -5451258294122076356, guid: d93fa46160f76b5dea8c6b583c5ae455, type: 3}
+  AnimationSpeed: 0.1
+  Radius: 5
+  Damage: 10

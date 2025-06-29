@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using BelowSeaLevel_25.AI;
 using UnityEngine;
 
 namespace BelowSeaLevel_25
@@ -14,19 +17,27 @@ namespace BelowSeaLevel_25
         public int currentHealth;
         public int MaxHealth => m_Health;
 
+        private BehaviorTree m_BehaviorTree;
         private int m_Score;
         private int m_Damage;
         private int m_Health;
         private float m_Speed;
         private Sprite m_Sprite;
+        private List<Sprite> m_HitSprites;
+        private List<Sprite> m_AttackSprites;
+        private List<Sprite> m_DeathSprites;
+        private float m_AnimationSpeed;
 
         public int GetDamage() => m_Damage;
 
         public float GetSpeed() => m_Speed;
 
+        private bool IsDead => currentHealth <= 0;
+
         public override void OnEnable()
         {
             currentHealth = m_Health;
+            m_BehaviorTree?.Reset();
         }
 
         public override void Init(Entity entity)
@@ -39,6 +50,17 @@ namespace BelowSeaLevel_25
             m_Damage = enemy.GetDamage();
             m_Score = enemy.GetScore();
             m_Sprite = enemy.GetSprite();
+            m_HitSprites = enemy.GetHitSprites();
+            m_AttackSprites = enemy.GetAttackSprites();
+            m_DeathSprites = enemy.GetDeathSprites();
+            m_AnimationSpeed = enemy.GetAnimationSpeed();
+
+            switch (enemy.GetEnemyKind())
+            {
+                case EnemyKind.Angler:
+                    m_BehaviorTree = new AnglerFishTree(this);
+                    break;
+            }
 
             if (m_Sprite != null)
             {
@@ -48,14 +70,15 @@ namespace BelowSeaLevel_25
             TargetVelocity = TargetDirection * m_Speed;
         }
 
-        public void Update()
-        { 
 
+        public void Update()
+        {
+            m_BehaviorTree.Process();
         }
 
         public void FixedUpdate()
         {
-            rb2D.linearVelocity = TargetDirection * m_Speed;
+            rb2D.linearVelocity = TargetVelocity;
             transform.up = RelativeFacingDirection;
         }
 
@@ -80,25 +103,72 @@ namespace BelowSeaLevel_25
         }
 
         public void ProcessDamage(MonoProjectileEntity entity)
-        { 
+        {
             SubHealth(entity.GetDamage());
+            EntityManager.Spawn<MonoEffectEntity>("HitEffect", entity.transform.position);
             entity.gameObject.SetActive(false);
+            CameraManager.ShakeCamera(0.10f, 0.05f);
         }
 
         public void ProcessDamage(MonoLazerEntity entity)
-        { 
+        {
             SubHealth(entity.GetDamage());
+            EntityManager.Spawn<MonoEffectEntity>("HitEffect", entity.transform.position);
         }
 
         public void SubHealth(int damage)
         {
             currentHealth -= damage;
 
-            if (currentHealth <= 0)
+            if (IsDead)
             {
                 GameManager.Player.AddScore(m_Score);
-                gameObject.SetActive(false);
+                StartCoroutine(PlayDeathEffect());
             }
+            else
+            {
+                StartCoroutine(PlayHitEffect());
+            }
+        }
+
+        private IEnumerator PlayHitEffect()
+        {
+            yield return new WaitForEndOfFrame();
+
+            for (int i = 0; i < m_HitSprites.Count; i++)
+            {
+                spriteRenderer.sprite = m_HitSprites[i];
+                yield return new WaitForSeconds(m_AnimationSpeed);
+            }
+
+            spriteRenderer.sprite = m_Sprite;
+        }
+        
+        private IEnumerator PlayAttackEffect()
+        { 
+            yield return new WaitForEndOfFrame();
+
+            for (int i = 0; i < m_AttackSprites.Count; i++)
+            {
+                spriteRenderer.sprite = m_AttackSprites[i];
+                yield return new WaitForSeconds(m_AnimationSpeed);
+            }
+
+            spriteRenderer.sprite = m_Sprite;
+        }
+
+        private IEnumerator PlayDeathEffect()
+        {
+            yield return new WaitForEndOfFrame();
+
+            for (int i = 0; i < m_DeathSprites.Count; i++)
+            {
+                spriteRenderer.sprite = m_DeathSprites[i];
+                yield return new WaitForSeconds(m_AnimationSpeed);
+            }
+
+            spriteRenderer.sprite = m_Sprite;
+            gameObject.SetActive(false);
         }
     }
 }

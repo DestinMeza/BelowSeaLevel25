@@ -12,7 +12,6 @@ namespace BelowSeaLevel_25
                 return;
             }
 
-            enemy.gameObject.SetActive(false);
             GameManager.Player.SubHealth(enemy.GetDamage());
         }
     }
