@@ -10,7 +10,6 @@ namespace BelowSeaLevel_25
         public MonoCard[] ActiveHand => GetActiveHand();
         public MonoCard LastCard => GetLastCard();
         public MonoCard StartingCard => GetFirstCard();
-        public int SelectedIndex => m_SelectedIndex;
 
         public MonoCard[] UICards;
 
@@ -21,7 +20,6 @@ namespace BelowSeaLevel_25
         private DeckConfig m_AvalibleCardDeck;
 
         private Deck m_ReferencedDeck;
-        private int m_SelectedIndex;
 
         public void Init()
         {
@@ -38,30 +36,29 @@ namespace BelowSeaLevel_25
             }
 
             m_ReferencedDeck = new Deck(m_AvalibleCardDeck.Cards);
-            m_SelectedIndex = UICards.Length - 1;
             UpdateActiveHand();
         }
 
-        public void OnSelectCallback(Card card)
+        public void OnSelectCallback(MonoCard monoCard)
         {
-            Debug.Log($"Selecting: {card.GetType().Name}");
+            Debug.Log($"Selecting: {monoCard.CardRef.GetType().Name}");
         }
 
-        public void OnActivateCallback(Card card)
+        public void OnActivateCallback(MonoCard monoCard)
         {
-            Debug.Log($"Activating: {card.GetType().Name}");
+            Debug.Log($"Activating: {monoCard.CardRef.GetType().Name}");
 
-            CardManager.SetActiveCard(card);
+            CardManager.SetActiveCard(monoCard);
         }
 
-        public void OnDrawCallback(Card card)
+        public void OnDrawCallback(MonoCard monoCard)
         {
-            Debug.Log($"Drawing: {card.GetType().Name}");
+            Debug.Log($"Drawing: {monoCard.CardRef.GetType().Name}");
         }
 
         private MonoCard GetInactiveCard()
         {
-            return UICards.Where(x => !x.isActiveAndEnabled).FirstOrDefault();
+            return UICards.Where(x => !x.HasCard).FirstOrDefault();
         }
 
         public void Draw()
@@ -82,7 +79,7 @@ namespace BelowSeaLevel_25
 
                 for (int i = 0; i < monoCards.Count; i++)
                 {
-                    if (monoCards[i].isActiveAndEnabled)
+                    if (monoCards[i].HasCard)
                     {
                         monoCardToDiscard = monoCards[i];
                         break;
@@ -97,21 +94,12 @@ namespace BelowSeaLevel_25
 
         public void Discard(MonoCard cardToDiscard)
         {
-            if (null == cardToDiscard)
-            { 
-                return;
-            }
-
             Debug.Log("Discarding Card...");
             GameManager.Player.AddScore(-10);
 
             cardToDiscard.OnDiscard();
+            
             UpdateActiveHand();
-        }
-
-        public void SetSelectedIndex(int index)
-        {
-            m_SelectedIndex = index;
         }
 
         public void UpdateActiveHand()

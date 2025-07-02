@@ -9,9 +9,9 @@ namespace BelowSeaLevel_25
     public class MonoCard : MonoBehaviour, IUIElement
     {
         #region Events
-        public delegate void SelectEvent(Card cardable);
-        public delegate void ActivateEvent(Card cardable);
-        public delegate void DrawEvent(Card cardable);
+        public delegate void SelectEvent(MonoCard self);
+        public delegate void ActivateEvent(MonoCard self);
+        public delegate void DrawEvent(MonoCard self);
 
         public SelectEvent OnSelectCallback = delegate { };
         public ActivateEvent OnActivateCallback = delegate { };
@@ -39,30 +39,23 @@ namespace BelowSeaLevel_25
             CardTextField.text = card.GetCardDetails();
 
             CardRef.SetGameCard(this);
-            OnDrawCallback(CardRef);
-            SetActive(true);
+            OnDrawCallback(this);
         }
 
         public void OnSelect()
         {
-            OnSelectCallback(CardRef);
+            OnSelectCallback(this);
         }
 
         public void OnActivate()
         {
-            OnActivateCallback(CardRef);
+            OnActivateCallback(this);
         }
 
         public void OnDiscard()
         {
             CardRef.SetGameCard(null);
             CardRef = null;
-            SetActive(false);
-        }
-
-        public void SetCard(Card card)
-        {
-            CardRef = card;
         }
 
         public void SetActive(bool state)

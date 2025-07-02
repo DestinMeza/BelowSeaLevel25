@@ -69,6 +69,8 @@ namespace BelowSeaLevel_25
                     break;
             }
 
+            currentHealth = m_Health;
+
             if (m_Sprite != null)
             {
                 spriteRenderer.sprite = m_Sprite;

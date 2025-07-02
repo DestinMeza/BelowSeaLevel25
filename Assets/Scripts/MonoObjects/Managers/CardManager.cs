@@ -15,11 +15,11 @@ namespace BelowSeaLevel_25
         public float PowerBarConsumeRate = 1.0f;
 
 
-        public Card ActiveCard => m_ActiveCard;
+        public MonoCard ActiveCard => m_ActiveCard;
         public MonoHand GameHand;
 
         private bool m_IsPowerModeActive;
-        private Card m_ActiveCard;
+        private MonoCard m_ActiveCard;
         private Coroutine m_AutoActivationCoroutine;
         private Coroutine m_ActiveConsumeBarCoroutine;
 
@@ -74,7 +74,7 @@ namespace BelowSeaLevel_25
 
             AudioManager.PlaySFXClip("Discard");
 
-            if (m_ActiveCard.AutoLeftClickLock)
+            if (m_ActiveCard.CardRef.AutoLeftClickLock)
             {
                 if (m_AutoActivationCoroutine != null)
                 {
@@ -97,18 +97,16 @@ namespace BelowSeaLevel_25
                 return;
             }
 
-            m_ActiveCard.OnActivate();
-
+            m_ActiveCard.CardRef.OnActivate();
             m_CurrentCount++;
 
-            int remainingActivations = m_ActiveCard.GetCount() - m_CurrentCount;
+            int remainingActivations = m_ActiveCard.CardRef.GetCount() - m_CurrentCount;
 
             Debug.Log($"Card Reactivate Remaining: {remainingActivations}");
 
             if (remainingActivations <= 0)
             {
-                MonoCard monoCard = m_ActiveCard.MonoCard;
-                GameHand.Discard(monoCard);
+                GameHand.Discard(m_ActiveCard);
                 m_ActiveCard = null;
 
                 UIManager.SetUIState(UIState.HandMode);
@@ -127,7 +125,7 @@ namespace BelowSeaLevel_25
                     break;
                 }
 
-                yield return new WaitForSeconds(m_ActiveCard.AutoLeftClickRate);
+                yield return new WaitForSeconds(m_ActiveCard.CardRef.AutoLeftClickRate);
 
             } while (m_CurrentCount > 0);
 
@@ -179,7 +177,7 @@ namespace BelowSeaLevel_25
             Instance.GameHand.Draw();
         }
 
-        public static void SetActiveCard(Card card)
+        public static void SetActiveCard(MonoCard card)
         {
             if (Instance.m_AutoActivationCoroutine != null)
             {
@@ -198,7 +196,7 @@ namespace BelowSeaLevel_25
 
         public static void External_CancelActiveCard()
         {
-            MonoCard monoCard = Instance.m_ActiveCard.MonoCard;
+            MonoCard monoCard = Instance.m_ActiveCard;
             Instance.GameHand.Discard(monoCard);
             Instance.m_IsPowerModeActive = false;
             Instance.m_ActiveCard = null;

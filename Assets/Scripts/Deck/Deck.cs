@@ -46,8 +46,11 @@ namespace BelowSeaLevel_25
 
             if (m_Cards.Length == drawIndex + 1)
             {
-                drawIndex = -1;
+                drawIndex = 0;
                 Shuffle();
+                cardToReturn = m_Cards[drawIndex];
+
+                return cardToReturn;
             }
 
             drawIndex++;
