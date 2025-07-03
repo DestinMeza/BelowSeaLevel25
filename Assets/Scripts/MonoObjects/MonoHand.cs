@@ -117,6 +117,18 @@ namespace BelowSeaLevel_25
             }
         }
 
+        public MonoCard GetAtActiveIndex(int index)
+        {
+            MonoCard[] activeHand = GetActiveHand();
+
+            if (activeHand.Length == 0 || index >= activeHand.Length)
+            {
+                return null;
+            }
+
+            return activeHand[index];
+        }
+
         private MonoCard[] GetActiveHand()
         {
             List<MonoCard> activeCards = new();

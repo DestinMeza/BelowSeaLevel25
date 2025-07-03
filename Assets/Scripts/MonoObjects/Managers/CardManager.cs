@@ -175,6 +175,11 @@ namespace BelowSeaLevel_25
             Instance.GameHand.Draw();
             Instance.GameHand.Draw();
             Instance.GameHand.Draw();
+
+            if (UIManager.Instance.Hand.StartingCard != null)
+            {
+                InputManager.SetActiveGameObject(UIManager.Instance.Hand.StartingCard.gameObject);
+            }
         }
 
         public static void SetActiveCard(MonoCard card)

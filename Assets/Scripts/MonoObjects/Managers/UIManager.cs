@@ -76,8 +76,9 @@ namespace BelowSeaLevel_25
                     }
                 }
             };
-
+            
             UpdateUIState();
+            SetKeyboardInputPointer();
         }
 
         public void UpdateUIState()
@@ -96,6 +97,36 @@ namespace BelowSeaLevel_25
             Instance.uiState = state;
 
             Instance.UpdateUIState();
+
+            SetKeyboardInputPointer();
+        }
+
+        private static void SetKeyboardInputPointer()
+        {
+            switch (Instance.uiState)
+            {
+                case UIState.FreePointer:
+                    InputManager.SetActiveGameObject(Instance.OpenHandButton.gameObject);
+                    break;
+                case UIState.HandMode:
+                    if (Instance.Hand.StartingCard != null)
+                    {
+                        InputManager.SetActiveGameObject(Instance.Hand.StartingCard.gameObject);
+                    }
+                    else
+                    {
+                        InputManager.SetActiveGameObject(Instance.DrawButton.gameObject);
+                    }
+                    break;
+                case UIState.PlayCardMode:
+                    InputManager.SetActiveGameObject(null);
+                    break;
+
+                //Implement Me
+                case UIState.SelectDiscard:
+
+                    break;
+            } 
         }
 
         public static void ForceDiscard()

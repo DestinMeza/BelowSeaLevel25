@@ -16,18 +16,35 @@ namespace BelowSeaLevel_25
     /// </summary>
     internal class InputManager : MonoManager<InputManager>
     {
+        public EventSystem eventSystem;
         public delegate void OnPlayCard();
         public static OnPlayCard OnPlayCardCallback = delegate { };
 
         private bool hasMouseInput;
-        private bool hasKeyboardInput;
+        private bool hasKeyboardSubmitInput;
+        private int keyboardInputIndex = -1;
+
 
         private void Update()
         {
-            hasMouseInput = Input.GetMouseButtonDown(0);
-            hasKeyboardInput = Input.GetButtonDown("Submit");
+            keyboardInputIndex = -1;
+            {
+                int index = 0;
+                for (KeyCode keyCode = KeyCode.Alpha1; keyCode <= KeyCode.Alpha9; keyCode++)
+                {
+                    if (Input.GetKeyDown(keyCode))
+                    {
+                        keyboardInputIndex = index;
+                        break;
+                    }
+                    index++;
+                }
+            }
 
-            if (!Globals.GameState.IsPlaying && GameManager.Instance.CanInputRestart && (hasMouseInput || hasKeyboardInput))
+            hasMouseInput = Input.GetMouseButtonDown(0);
+            hasKeyboardSubmitInput = Input.GetButtonDown("Submit");
+
+            if (!Globals.GameState.IsPlaying && GameManager.Instance.CanInputRestart && (hasMouseInput || hasKeyboardSubmitInput))
             {
                 GameManager.Reset();
                 return;
@@ -62,6 +79,15 @@ namespace BelowSeaLevel_25
                     return;
                 }
             }
+            if (hasKeyboardSubmitInput)
+            {
+                if (eventSystem.currentSelectedGameObject != null && eventSystem.currentSelectedGameObject.TryGetComponent(out ButtonScript buttonScript))
+                {
+                    Debug.Log($"Selected Button! :{buttonScript.gameObject.name}");
+                    buttonScript.OnInteract();
+                    return;
+                }
+            }
         }
 
         public void HandModeState()
@@ -82,6 +108,32 @@ namespace BelowSeaLevel_25
                     return;
                 }
             }
+            if (hasKeyboardSubmitInput)
+            {
+                if (eventSystem.currentSelectedGameObject != null && eventSystem.currentSelectedGameObject.TryGetComponent(out ButtonScript buttonScript))
+                {
+                    buttonScript.OnInteract();
+                    return;
+                }
+                if (eventSystem.currentSelectedGameObject != null && eventSystem.currentSelectedGameObject.TryGetComponent(out MonoCard monoCard))
+                {
+                    monoCard.OnActivate();
+                    return;
+                }
+            }
+            if (keyboardInputIndex != -1)
+            {
+                MonoCard monoCard = UIManager.Instance.Hand.GetAtActiveIndex(keyboardInputIndex);
+
+                if (monoCard == null)
+                {
+                    return;
+                }
+
+                monoCard.OnActivate();
+                return;
+            }
+
         }
 
         public void PlayCardState()
@@ -97,6 +149,14 @@ namespace BelowSeaLevel_25
                 }
 
                 OnPlayCardCallback();
+            }
+            if (hasKeyboardSubmitInput)
+            {
+                if (eventSystem.currentSelectedGameObject != null && eventSystem.currentSelectedGameObject.TryGetComponent(out ButtonScript buttonScript))
+                {
+                    buttonScript.OnInteract();
+                    return;
+                }
             }
         }
 
@@ -139,6 +199,11 @@ namespace BelowSeaLevel_25
         public override void OnDestroy()
         {
             base.OnDestroy();
+        }
+
+        public static void SetActiveGameObject(GameObject gameObject)
+        {
+            Instance.eventSystem.SetSelectedGameObject(gameObject);
         }
     }
 }
